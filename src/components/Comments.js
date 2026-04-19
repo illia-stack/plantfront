@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
+import { API_BASE_URL } from "../config";
 import { LanguageContext } from "../context/LanguageContext";
 import { translations } from "../translations";
 
@@ -15,7 +16,7 @@ function Comments({ productId }) {
   const fetchComments = async () => {
     try {
       const res = await fetch(
-        `http://localhost/4_Indoor_Gardening_Plants/indoor-gardening-backend/api/comments.php?product_id=${productId}`
+        `${API_BASE_URL}/comments.php?product_id=${productId}`
       );
 
       const data = await res.json();
@@ -45,7 +46,7 @@ function Comments({ productId }) {
 
     try {
       const res = await fetch(
-        "http://localhost/4_Indoor_Gardening_Plants/indoor-gardening-backend/api/comments.php",
+        `${API_BASE_URL}/comments.php`,
         {
           method: "POST",
           headers: {

@@ -4,6 +4,7 @@ import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import { translations } from "../translations";
 import { AuthContext } from "../context/AuthContext";
+import { API_BASE_URL, BACKEND_URL } from "../config";
 
 function Cart() {
   const { language } = useContext(LanguageContext);
@@ -26,11 +27,11 @@ function Cart() {
 
   const [products, setProducts] = useState([]);
 
-  const BACKEND_URL =
-    "http://localhost/4_Indoor_Gardening_Plants/indoor-gardening-backend/uploads/";
+ 
 
   useEffect(() => {
-    fetch(`http://localhost/4_Indoor_Gardening_Plants/indoor-gardening-backend/api/get-products.php?lang=${language}`)
+
+    fetch(`${API_BASE_URL}/get-products.php?lang=${language}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Netzwerkantwort war nicht ok");
@@ -71,7 +72,7 @@ function Cart() {
             let imageSrc = product.image_url
               ? product.image_url.startsWith("http")
                 ? product.image_url
-                : BACKEND_URL + product.image_url
+                : `${BACKEND_URL}/uploads/${product.image_url}`
               : "https://via.placeholder.com/100";
 
             return (

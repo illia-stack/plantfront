@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config"; 
 import { AuthContext } from "../context/AuthContext";
 import { LanguageContext } from "../context/LanguageContext";
 import { translations } from "../translations";
@@ -16,8 +17,9 @@ function Register() {
 
   const handleRegister = async () => {
     try {
+      
       const res = await fetch(
-        "http://localhost/4_Indoor_Gardening_Plants/indoor-gardening-backend/api/register.php", // Use correct URL
+        `${API_BASE_URL}/register.php`, // <-- Variable verwenden
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

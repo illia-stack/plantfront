@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { API_BASE_URL } from "../config";
 
 function Delivery() {
 
@@ -34,7 +35,7 @@ const user = JSON.parse(localStorage.getItem("user")) || null;
 
 
   try {
-  const response = await fetch("http://localhost/4_Indoor_Gardening_Plants/indoor-gardening-backend/api/create-checkout-session.php", {
+  const response = await fetch(`${API_BASE_URL}/create-checkout-session.php`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import { API_BASE_URL } from "../config";
 import { AuthContext } from "../context/AuthContext";
 import { LanguageContext } from "../context/LanguageContext";
 import { translations } from "../translations";
@@ -13,7 +14,7 @@ function Login() {
 
   const handleLogin = async () => {
     try {
-      const res = await fetch("http://localhost/4_Indoor_Gardening_Plants/indoor-gardening-backend/api/login.php", {
+      const res = await fetch(`${API_BASE_URL}/login.php`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })

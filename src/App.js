@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
+import { API_BASE_URL } from "./config";
 import Navbar from "./components/Navbar";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -12,6 +13,7 @@ import Delivery from "./pages/Delivery";
 import { LanguageContext } from "./context/LanguageContext";
 import { translations } from "./translations";
 import Contact from "./pages/Contact";
+
 
 
 
@@ -43,7 +45,7 @@ function Home() {
       try {
 
         const response = await fetch(
-          "http://localhost/4_Indoor_Gardening_Plants/indoor-gardening-backend/api/get-products.php?lang=" + language
+          `${API_BASE_URL}/get-products.php?lang=${language}`
         );
 
         if (!response.ok) throw new Error("Failed to fetch plants");
