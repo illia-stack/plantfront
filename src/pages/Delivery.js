@@ -34,6 +34,10 @@ const user = JSON.parse(localStorage.getItem("user")) || null;
   }));
 
 
+
+
+  const language = localStorage.getItem("language") || "en";
+
   try {
   const response = await fetch(`${API_BASE_URL}/create-checkout-session.php`, {
     method: "POST",
@@ -43,11 +47,19 @@ const user = JSON.parse(localStorage.getItem("user")) || null;
     body: JSON.stringify({
       cart: preparedCart,
       delivery: form,
-      user: user
+      user: user,
+      language: language
     })
   });
 
-  const data = await response.json();
+  if (!response.ok) {
+  const text = await response.text();
+  console.error("Server error:", text);
+  alert("Server error");
+  return;
+}
+
+const data = await response.json();
 
   console.log("Stripe response:", data);
 

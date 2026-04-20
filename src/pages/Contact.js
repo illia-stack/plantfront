@@ -7,11 +7,25 @@ const Contact = () => {
   const { language } = useContext(LanguageContext);
   const t = translations[language];
 
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+
+  const res = await fetch(`${API_BASE_URL}/send-contact.php`, {
+    method: "POST",
+    body: formData
+  });
+
+  const data = await res.json();
+  console.log(data);
+};
+
   return (
     <div className="container" style={{ maxWidth: "600px" }}>
       <h2>{t.contact}</h2>
 
-      <form
+      <form onSubmit={handleSubmit}
         action={`${API_BASE_URL}/send-contact.php`}
         method="POST"
         style={{ display: "flex", flexDirection: "column", gap: "15px" }}
