@@ -8,18 +8,28 @@ const Contact = () => {
   const t = translations[language];
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
+    const formData = new FormData(e.target);
 
-  const formData = new FormData(e.target);
+    try {
+      const res = await fetch(`${API_BASE_URL}/send-contact.php`, {
+        method: "POST",
+        body: formData
+      });
 
-  const res = await fetch(`${API_BASE_URL}/send-contact.php`, {
-    method: "POST",
-    body: formData
-  });
+      const data = await res.json();
 
-  const data = await res.json();
-  console.log(data);
-};
+      if (data.success) {
+        alert(t.sendSuccess);
+        e.target.reset();
+      } else {
+        alert(t.sendError);
+      }
+    } catch (err) {
+      console.error(err);
+      alert(t.sendError);
+    }
+  };
 
   return (
     <div className="container" style={{ maxWidth: "600px" }}>

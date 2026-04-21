@@ -1,11 +1,10 @@
-/* floating-cart.css */
+
 .floating-cart {
   position: sticky;
-  top: 20px;
-
-  width: fit-content;       /* IMPORTANT */
-  margin-left: auto;        /* pushes it to right */
-  margin-right: 20px;
+  top: 20px;       /* Abstand vom oberen Rand des Containers */
+  align-self: flex-end; /* optional, wenn Sie rechts ausrichten */
+  margin-left: auto; /* schiebt es nach rechts */
+  width: fit-content;
 
   display: flex;
   align-items: center;
@@ -13,17 +12,12 @@
 
   background-color: #27ae60;
   color: white;
-
   padding: 10px 14px;
-  border-radius: 999px;     /* pill shape */
-
+  border-radius: 999px;
   font-size: 14px;
   font-weight: 600;
-
   cursor: pointer;
-
   box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.15);
-
   transition: transform 0.2s ease;
 }
 

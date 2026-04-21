@@ -17,12 +17,15 @@ export const translations = {
     registerFailed: "Registration failed, please try again.",
 
     // Contact
-    contact: "Contact Us", 
-    name: "Name",
-    email: "Email",
-    subject: "Subject",
-    message: "Message",
-    send: "Send",
+    contact: {contact: "Contact Us", 
+      name: "Name",
+      email: "Email",
+      subject: "Subject",
+      message: "Message",
+      send: "Send",
+      sendSuccess: "Message sent successfully!",
+      sendError: "Failed to send message. Please try again."
+    },
   
     title: "Indoor Gardening Plants - JUST PORTFOLIO PROJECT",
     home: "Home",
@@ -48,14 +51,18 @@ export const translations = {
 
 
     comments: {
-    title: "Comments",
-    name: "Your name",
-    placeholder: "Write a comment...",
-    post: "Post",
-    empty: "No comments yet",
-    commentsButtonShow: "Show comments",
-    commentsButtonHide: "Hide comments",
-              }
+      title: "Comments",
+      name: "Your name",
+      placeholder: "Write a comment...",
+      post: "Post",
+      empty: "No comments yet",
+      commentsButtonShow: "Show comments",
+      commentsButtonHide: "Hide comments",
+      fetchError: "Failed to fetch comments (status: {status})",
+      fillFields: "Please fill all fields",
+      postError: "Failed to post comment (error: {error})",
+      postSuccess: "Comment posted successfully!"
+    }
   },
 
 
@@ -85,12 +92,15 @@ export const translations = {
 
     
     // Contact
-    contact: "Contáctanos",
-    name: "Nombre",
-    email: "Correo electrónico",
-    subject: "Asunto",
-    message: "Mensaje",
-    send: "Enviar",
+    contact: { contact: "Contáctanos",
+        name: "Nombre",
+        email: "Correo electrónico",
+        subject: "Asunto",
+        message: "Mensaje",
+        send: "Enviar",
+        sendSuccess: "¡Mensaje enviado con éxito!",
+        sendError: "No se pudo enviar el mensaje. Por favor, inténtelo de nuevo."
+    },
 
 
     title: "Plantas de Jardinería Interior - PARA PORTFOLIO, NO REAL",
@@ -117,14 +127,18 @@ export const translations = {
 
 
     comments: {
-    title: "Comentarios",
-    name: "Tu nombre",
-    placeholder: "Escribe un comentario...",
-    post: "Publicar",
-    empty: "Aún no hay comentarios",
-    commentsButtonShow: "Mostrar comentarios",
-    commentsButtonHide: "Ocultar comentarios",
-              }
+      title: "Comentarios",
+      name: "Tu nombre",
+      placeholder: "Escribe un comentario...",
+      post: "Publicar",
+      empty: "Aún no hay comentarios",
+      commentsButtonShow: "Mostrar comentarios",
+      commentsButtonHide: "Ocultar comentarios",
+      fetchError: "No se pudieron cargar los comentarios (error: {status})",
+      fillFields: "Por favor complete todos los campos",
+      postError: "No se pudo enviar el comentario (error: {error})",
+      postSuccess: "¡Comentario enviado con éxito!"
+    }
   },
 
 
@@ -154,12 +168,15 @@ export const translations = {
 
     // Contact
 
-    contact: "Kontaktieren Sie uns", 
-    name: "Name",
-    email: "E-Mail",
-    subject: "Betreff",
-    message: "Nachricht",
-    send: "Senden",
+    contact: {contact: "Kontaktieren Sie uns", 
+      name: "Name",
+      email: "E-Mail",
+      subject: "Betreff",
+      message: "Nachricht",
+      send: "Senden",
+      sendSuccess: "Nachricht erfolgreich gesendet!",
+      sendError: "Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es erneut."
+    },
 
     title: "Zimmerpflanzen - NUR PORTFOLIO-PROJEKT",
     home: "Startseite",
@@ -185,14 +202,18 @@ export const translations = {
 
 
     comments: {
-    title: "Kommentare",
-    name: "Ihr Name",
-    placeholder: "Schreiben Sie einen Kommentar...",
-    post: "Senden",
-    empty: "Noch keine Kommentare",
-    commentsButtonShow: "Kommentare anzeigen",
-    commentsButtonHide: "Kommentare ausblenden",
-              }
+      title: "Kommentare",
+      name: "Ihr Name",
+      placeholder: "Schreiben Sie einen Kommentar...",
+      post: "Senden",
+      empty: "Noch keine Kommentare",
+      commentsButtonShow: "Kommentare anzeigen",
+      commentsButtonHide: "Kommentare ausblenden",
+      fetchError: "Kommentare konnten nicht geladen werden (Fehler: {status})",
+      fillFields: "Bitte füllen Sie alle Felder aus",
+      postError: "Kommentar konnte nicht gesendet werden (Fehler: {error})",
+      postSuccess: "Kommentar erfolgreich gesendet!"
+    }
 
   }
 };

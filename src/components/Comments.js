@@ -15,13 +15,14 @@ function Comments({ productId }) {
   // Fetch comments
   const fetchComments = async () => {
     try {
-      const res = await fetch(
-        `${API_BASE_URL}/comments.php?product_id=${productId}`
-      );
+      const res = await fetch(`${API_BASE_URL}/comments.php?product_id=${productId}`);
+      
+      if (!res.ok) {
+        throw new Error(`Failed to fetch comments: ${res.status}`);
+      }
 
       const data = await res.json();
       setComments(Array.isArray(data) ? data : []);
-
     } catch (err) {
       console.error("Error fetching comments:", err);
       setComments([]);
@@ -40,32 +41,25 @@ function Comments({ productId }) {
     e.preventDefault();
 
     if (!username || !comment) {
-      alert("Please fill all fields");
+      alert(t.fillFields);
       return;
     }
 
     try {
-      const res = await fetch(
-        `${API_BASE_URL}/comments.php`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            product_id: productId,
-            username,
-            comment
-          })
-        }
-      );
+      const res = await fetch(`${API_BASE_URL}/comments.php`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ product_id: productId, username, comment })
+      });
 
-      
-      const text = await res.text();
-      const result = JSON.parse(text);
+      if (!res.ok) {
+        throw new Error(t.fetchError.replace("{status}", res.status));
+      }
+
+      const result = await res.json();
 
       if (!result.success) {
-        alert("Failed to post comment");
+        alert(t.postError.replace("{error}", result.error || ""));
         return;
       }
 
@@ -78,34 +72,29 @@ function Comments({ productId }) {
     } catch (err) {
       console.error("Error posting comment:", err);
     }
+
+    alert(t.postSuccess);
   };
 
   return (
     <div className="comments">
 
-      {/* Title */}
       <h3>{t.title}</h3>
 
-      {/* Form */}
       <form onSubmit={handleSubmit}>
-
         <input
           placeholder={t.name}
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-
         <textarea
           placeholder={t.placeholder}
           value={comment}
           onChange={(e) => setComment(e.target.value)}
         />
-
         <button type="submit" className="primary-btn">{t.post}</button>
-
       </form>
 
-      {/* Comments list */}
       {comments.length === 0 ? (
         <p>{t.empty}</p>
       ) : (
