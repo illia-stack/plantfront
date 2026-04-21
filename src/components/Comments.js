@@ -4,7 +4,6 @@ import { LanguageContext } from "../context/LanguageContext";
 import { translations } from "../translations";
 
 function Comments({ productId }) {
-
   const { language } = useContext(LanguageContext);
   const t = translations[language].comments;
 
@@ -16,11 +15,7 @@ function Comments({ productId }) {
   const fetchComments = async () => {
     try {
       const res = await fetch(`${API_BASE_URL}/comments.php?product_id=${productId}`);
-      
-      if (!res.ok) {
-        throw new Error(`Failed to fetch comments: ${res.status}`);
-      }
-
+      if (!res.ok) throw new Error(`Failed to fetch comments: ${res.status}`);
       const data = await res.json();
       setComments(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -31,15 +26,12 @@ function Comments({ productId }) {
 
   // Load comments on product change
   useEffect(() => {
-    if (productId) {
-      fetchComments();
-    }
+    if (productId) fetchComments();
   }, [productId]);
 
   // Submit comment
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!username || !comment) {
       alert(t.fillFields);
       return;
@@ -52,12 +44,9 @@ function Comments({ productId }) {
         body: JSON.stringify({ product_id: productId, username, comment })
       });
 
-      if (!res.ok) {
-        throw new Error(t.fetchError.replace("{status}", res.status));
-      }
+      if (!res.ok) throw new Error(t.fetchError.replace("{status}", res.status));
 
       const result = await res.json();
-
       if (!result.success) {
         alert(t.postError.replace("{error}", result.error || ""));
         return;
@@ -65,20 +54,16 @@ function Comments({ productId }) {
 
       setUsername("");
       setComment("");
-
-      // refresh list
       fetchComments();
+      alert(t.postSuccess);
 
     } catch (err) {
       console.error("Error posting comment:", err);
     }
-
-    alert(t.postSuccess);
   };
 
   return (
     <div className="comments">
-
       <h3>{t.title}</h3>
 
       <form onSubmit={handleSubmit}>
@@ -99,13 +84,12 @@ function Comments({ productId }) {
         <p>{t.empty}</p>
       ) : (
         comments.map((c, idx) => (
-  <div key={c.id || idx} className="comments">
-    <strong>{c.username}</strong>
-    <p>{c.comment}</p>
-  </div>
-))
+          <div key={c.id || idx} className="comment">
+            <strong>{typeof c.username === "string" ? c.username : JSON.stringify(c.username)}</strong>
+            <p>{typeof c.comment === "string" ? c.comment : JSON.stringify(c.comment)}</p>
+          </div>
+        ))
       )}
-
     </div>
   );
 }
