@@ -12,7 +12,7 @@ import Cancel from "./pages/Cancel";
 import Delivery from "./pages/Delivery";
 import { LanguageContext } from "./context/LanguageContext";
 import { translations } from "./translations";
-import Contact from "./pages/Contact";
+
 
 
 
@@ -138,7 +138,7 @@ function App() {
             <Routes>
                   <Route path="/" element={<Home />} />
 
-                  <Route path="/contact" element={<Contact />} />
+      
 
                   <Route path="/register" element={<Register />} />
 
