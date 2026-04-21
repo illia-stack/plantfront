@@ -20,6 +20,11 @@ function Login() {
         body: JSON.stringify({ email, password })
       });
 
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        handleLogin();
+      };
+
       const data = await res.json();
 
       if (data.success) {
@@ -32,25 +37,36 @@ function Login() {
       console.error(err);
       alert(t.loginFailed);
     }
+
+
   };
 
   return (
     <div style={{ padding: 40 }}>
       <h2>{t.loginTitle}</h2>
-      <input
-        placeholder={t.loginEmail}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <br />
-      <input
-        type="password"
-        placeholder={t.loginPassword}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <br />
-      <button onClick={handleLogin}>{t.loginButton}</button>
+      
+      <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }}>
+        
+        <input
+          type="email"                     // ✅ Typ Email für Validierung
+          placeholder={t.loginEmail}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required                        // ✅ Pflichtfeld
+        />
+        <br /><br />
+
+        <input
+          type="password"
+          placeholder={t.loginPassword}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <br /><br />
+
+        <button type="submit">{t.loginButton}</button>
+      </form>
     </div>
   );
 }

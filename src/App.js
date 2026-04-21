@@ -140,10 +140,10 @@ function App() {
 
       {/* Always visible */}
       <Navbar />
-
+       <FloatingCart />
       {/* Floating cart always visible */}
         <div className="layout">
-          <FloatingCart />
+         
             <Routes>
                   <Route path="/" element={<Home />} />
 

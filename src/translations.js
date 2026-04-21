@@ -1,11 +1,10 @@
 export const translations = {
-
   en: {
-
     loginTitle: "Login",
     loginEmail: "Email",
     loginPassword: "Password",
     loginButton: "Login",
+    loginSuccess: "Logged in successfully!",
     loginFailed: "Wrong credentials",
 
     registerTitle: "Register",
@@ -16,8 +15,8 @@ export const translations = {
     registerSuccess: "Account created successfully!",
     registerFailed: "Registration failed, please try again.",
 
-    // Contact
-    contact: {contact: "Contact Us", 
+    contact: {
+      contact: "Contact Us",
       name: "Name",
       email: "Email",
       subject: "Subject",
@@ -26,7 +25,7 @@ export const translations = {
       sendSuccess: "Message sent successfully!",
       sendError: "Failed to send message. Please try again."
     },
-  
+
     title: "Indoor Gardening Plants - JUST PORTFOLIO PROJECT",
     home: "Home",
     cart: "Your Cart",
@@ -36,19 +35,25 @@ export const translations = {
     addToCart: "Add to Cart",
     remove: "Remove",
     quantity: "Quantity",
+    total: "Total",
     heroTitle: "Bring Nature Into Your Home",
     heroSubtitle: "Beautiful indoor plants delivered to your door",
     deliveryTitle: "Delivery Details",
     deliverySubmit: "Complete order",
+    phone: "Phone",
     cancelTitle: "Payment Canceled",
     cancelMessage: "Your payment was cancelled. You can try again",
     cancelBack: "Payment is canceled",
+
+    successTitle: "Payment Successful 🎉",
+    successMessage: "Thank you for your order!",
+    backHome: "Back to Shop",
+
     name: "Full name",
     address: "Address",
     city: "City",
     postal: "Postal Code",
     country: "Country",
-
 
     comments: {
       title: "Comments",
@@ -65,95 +70,12 @@ export const translations = {
     }
   },
 
-
-
-
-
-
-
-
-
-  es: {
-
-    
-    loginTitle: "Iniciar sesión",
-    loginEmail: "Correo electrónico",
-    loginPassword: "Contraseña",
-    loginButton: "Entrar",
-    loginFailed: "Credenciales incorrectas",
-
-    registerTitle: "Registrarse",
-    registerName: "Nombre completo",
-    registerEmail: "Correo electrónico",
-    registerPassword: "Contraseña",
-    registerButton: "Registrarse",
-    registerSuccess: "¡Cuenta creada con éxito!",
-    registerFailed: "Error al registrarse, inténtelo de nuevo.",
-
-    
-    // Contact
-    contact: { contact: "Contáctanos",
-        name: "Nombre",
-        email: "Correo electrónico",
-        subject: "Asunto",
-        message: "Mensaje",
-        send: "Enviar",
-        sendSuccess: "¡Mensaje enviado con éxito!",
-        sendError: "No se pudo enviar el mensaje. Por favor, inténtelo de nuevo."
-    },
-
-
-    title: "Plantas de Jardinería Interior - PARA PORTFOLIO, NO REAL",
-    home: "Inicio",
-    cart: "Tu Carrito",
-    cartEmpty: "El carrito está vacío",
-    checkout: "Proceder al pago",
-    processing: "Procesando...",
-    addToCart: "Agregar al carrito",
-    remove: "Eliminar",
-    quantity: "Cantidad",
-    heroTitle: "Lleva la naturaleza a tu hogar",
-    heroSubtitle: "Hermosas plantas de interior entregadas a tu puerta",
-    deliveryTitle: "Detalles de entrega",
-    deliverySubmit: "Finalizar pedido",
-    cancelTitle: "Pago cancelado",
-    cancelMessage: "Su pago fue cancelado. Puede intentarlo nuevamente.",
-    cancelBack: "Volver a la tienda",
-    name: "Nombre completo",
-    address: "Dirección",
-    city: "Ciudad",
-    postal: "Código postal",
-    country: "País",
-
-
-    comments: {
-      title: "Comentarios",
-      name: "Tu nombre",
-      placeholder: "Escribe un comentario...",
-      post: "Publicar",
-      empty: "Aún no hay comentarios",
-      commentsButtonShow: "Mostrar comentarios",
-      commentsButtonHide: "Ocultar comentarios",
-      fetchError: "No se pudieron cargar los comentarios (error: {status})",
-      fillFields: "Por favor complete todos los campos",
-      postError: "No se pudo enviar el comentario (error: {error})",
-      postSuccess: "¡Comentario enviado con éxito!"
-    }
-  },
-
-
-
-
-
-
-
-
   de: {
-    
     loginTitle: "Anmelden",
     loginEmail: "E-Mail",
     loginPassword: "Passwort",
     loginButton: "Anmelden",
+    loginSuccess: "Erfolgreich angemeldet!",
     loginFailed: "Falsche Anmeldedaten",
 
     registerTitle: "Registrieren",
@@ -164,11 +86,8 @@ export const translations = {
     registerSuccess: "Konto erfolgreich erstellt!",
     registerFailed: "Registrierung fehlgeschlagen, bitte erneut versuchen.",
 
-
-
-    // Contact
-
-    contact: {contact: "Kontaktieren Sie uns", 
+    contact: {
+      contact: "Kontaktieren Sie uns",
       name: "Name",
       email: "E-Mail",
       subject: "Betreff",
@@ -187,19 +106,25 @@ export const translations = {
     addToCart: "In den Warenkorb",
     remove: "Entfernen",
     quantity: "Menge",
+    total: "Gesamt",
     heroTitle: "Holen Sie sich die Natur nach Hause",
     heroSubtitle: "Wunderschöne Zimmerpflanzen direkt an Ihre Haustür geliefert",
     deliveryTitle: "Lieferdetails",
-    deliverySubmit: "Bestellung abschliessen",
+    deliverySubmit: "Bestellung abschließen",
+    phone: "Telefon",
     cancelTitle: "Zahlung storniert",
     cancelMessage: "Ihre Zahlung wurde storniert. Sie können es erneut versuchen",
     cancelBack: "Zurück zum Shop",
+
+    successTitle: "Zahlung erfolgreich 🎉",
+    successMessage: "Vielen Dank für Ihre Bestellung!",
+    backHome: "Zurück zum Shop",
+
     name: "Vollständiger Name",
     address: "Adresse",
     city: "Stadt",
-    postal: "Posteleizahl",
+    postal: "Postleitzahl",
     country: "Land",
-
 
     comments: {
       title: "Kommentare",
@@ -214,7 +139,76 @@ export const translations = {
       postError: "Kommentar konnte nicht gesendet werden (Fehler: {error})",
       postSuccess: "Kommentar erfolgreich gesendet!"
     }
+  },
 
+  es: {
+    loginTitle: "Iniciar sesión",
+    loginEmail: "Correo electrónico",
+    loginPassword: "Contraseña",
+    loginButton: "Entrar",
+    loginSuccess: "¡Inicio de sesión exitoso!",
+    loginFailed: "Credenciales incorrectas",
+
+    registerTitle: "Registrarse",
+    registerName: "Nombre completo",
+    registerEmail: "Correo electrónico",
+    registerPassword: "Contraseña",
+    registerButton: "Registrarse",
+    registerSuccess: "¡Cuenta creada con éxito!",
+    registerFailed: "Error al registrarse, inténtelo de nuevo.",
+
+    contact: {
+      contact: "Contáctanos",
+      name: "Nombre",
+      email: "Correo electrónico",
+      subject: "Asunto",
+      message: "Mensaje",
+      send: "Enviar",
+      sendSuccess: "¡Mensaje enviado con éxito!",
+      sendError: "No se pudo enviar el mensaje. Por favor, inténtelo de nuevo."
+    },
+
+    title: "Plantas de Jardinería Interior - PARA PORTFOLIO, NO REAL",
+    home: "Inicio",
+    cart: "Tu Carrito",
+    cartEmpty: "El carrito está vacío",
+    checkout: "Proceder al pago",
+    processing: "Procesando...",
+    addToCart: "Agregar al carrito",
+    remove: "Eliminar",
+    quantity: "Cantidad",
+    total: "Total",
+    heroTitle: "Lleva la naturaleza a tu hogar",
+    heroSubtitle: "Hermosas plantas de interior entregadas a tu puerta",
+    deliveryTitle: "Detalles de entrega",
+    deliverySubmit: "Finalizar pedido",
+    phone: "Teléfono",
+    cancelTitle: "Pago cancelado",
+    cancelMessage: "Su pago fue cancelado. Puede intentarlo nuevamente.",
+    cancelBack: "Volver a la tienda",
+
+    successTitle: "Pago exitoso 🎉",
+    successMessage: "¡Gracias por tu pedido!",
+    backHome: "Volver a la tienda",
+
+    name: "Nombre completo",
+    address: "Dirección",
+    city: "Ciudad",
+    postal: "Código postal",
+    country: "País",
+
+    comments: {
+      title: "Comentarios",
+      name: "Tu nombre",
+      placeholder: "Escribe un comentario...",
+      post: "Publicar",
+      empty: "Aún no hay comentarios",
+      commentsButtonShow: "Mostrar comentarios",
+      commentsButtonHide: "Ocultar comentarios",
+      fetchError: "No se pudieron cargar los comentarios (error: {status})",
+      fillFields: "Por favor complete todos los campos",
+      postError: "No se pudo publicar el comentario (error: {error})",
+      postSuccess: "¡Comentario publicado con éxito!"
+    }
   }
 };
-

@@ -78,7 +78,7 @@ function Delivery() {
       <form onSubmit={handleSubmit}>
         <input
           name="name"
-          placeholder={t.name}
+          placeholder={t.name || "Name"}
           value={form.name}
           onChange={handleChange}
           required
@@ -87,7 +87,7 @@ function Delivery() {
 
         <input
           name="address"
-          placeholder={t.address}
+          placeholder={t.address || "Address"}
           value={form.address}
           onChange={handleChange}
           required
@@ -96,7 +96,7 @@ function Delivery() {
 
         <input
           name="city"
-          placeholder={t.city}
+          placeholder={t.city || "City"}
           value={form.city}
           onChange={handleChange}
           required
@@ -105,7 +105,7 @@ function Delivery() {
 
         <input
           name="postal"
-          placeholder={t.postal}
+          placeholder={t.postal || "Postal code"}
           value={form.postal}
           onChange={handleChange}
           required
@@ -114,7 +114,7 @@ function Delivery() {
 
         <input
           name="country"
-          placeholder={t.country}
+          placeholder={t.country || "Country"}
           value={form.country}
           onChange={handleChange}
           required

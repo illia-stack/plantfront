@@ -10,6 +10,7 @@ html, body {
 }
 
 body {
+  color: #333;
   margin: 0;
   font-family: system-ui, -apple-system, sans-serif;
 
@@ -36,3 +37,14 @@ body.dark .hero-banner {
   background: #2e7d32;
   color: white;
 }
+
+
+
+
+
+
+/*react testen*/
+#root {
+  border: 3px solid red;
+  min-height: 100vh;
+}   
