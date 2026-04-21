@@ -98,12 +98,12 @@ function Comments({ productId }) {
       {comments.length === 0 ? (
         <p>{t.empty}</p>
       ) : (
-        comments.map((c) => (
-          <div key={c.id} className="comments">
-            <strong>{c.username}</strong>
-            <p>{c.comment}</p>
-          </div>
-        ))
+        comments.map((c, idx) => (
+  <div key={c.id || idx} className="comments">
+    <strong>{c.username}</strong>
+    <p>{c.comment}</p>
+  </div>
+))
       )}
 
     </div>

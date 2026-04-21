@@ -50,7 +50,7 @@ function Cart() {
 
   return (
     <div className="cart-container">
-      <h1>{t.cartTitle}</h1>
+      <h1>{t.cart}</h1>
 
       {cart.length === 0 ? (
         <div className="cart-empty">
