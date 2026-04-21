@@ -3,7 +3,7 @@ import { LanguageContext } from "../context/LanguageContext";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import { translations } from "../translations";
-import { AuthContext } from "../context/AuthContext";
+
 import { API_BASE_URL } from "../config";
 
 function Cart() {
@@ -95,12 +95,7 @@ function Cart() {
               {t.total}: {Number(total).toFixed(2)} €
             </h2>
 
-            {/* 👇 ADD THIS */}
-            {user && (
-              <p style={{ color: "green", marginTop: "10px" }}>
-                5% discount applied 🎉
-              </p>
-            )}
+           
 
             <button className="primary-btn" onClick={handleCheckout}>
               {t.checkout}

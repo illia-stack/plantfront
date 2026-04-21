@@ -14,13 +14,11 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ThemeProvider>
   <LanguageProvider>
-    
       <CartProvider>
         <BrowserRouter>
           <App />
         </BrowserRouter>
       </CartProvider>
-
   </LanguageProvider>
 </ThemeProvider>
 );

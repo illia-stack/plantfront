@@ -1,12 +1,11 @@
 import { createContext, useState, useEffect, useContext } from "react";
-import { AuthContext } from "./AuthContext";
+
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
 
-  // ✅ GET USER FROM AUTH CONTEXT
-  const { user } = useContext(AuthContext);
+
 
   const [cart, setCart] = useState(() => {
     const saved = localStorage.getItem("cart");
@@ -78,9 +77,7 @@ export const CartProvider = ({ children }) => {
     0
   );
 
-  if (user) {
-    total = total * 0.95;
-  }
+ 
 
   
 
