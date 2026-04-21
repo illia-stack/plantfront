@@ -33,18 +33,14 @@ const Contact = () => {
 
   return (
     <div className="container" style={{ maxWidth: "600px" }}>
-      <h2>{t.contact}</h2> {/* ✅ richtig */}
-
-      <form
-        onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: "15px" }}
-      >
-        <input type="text" name="name" placeholder={t.name} required />
-        <input type="email" name="email" placeholder={t.email} required />
-        <input type="text" name="subject" placeholder={t.subject} required />
-        <textarea name="message" placeholder={t.message} rows={5} required />
-        <button type="submit" className="primary-btn">{t.send}</button>
-      </form>
+      <h2>{t.contact}</h2>
+<form onSubmit={handleSubmit}>
+  <input type="text" name="name" placeholder={t.name} required />
+  <input type="email" name="email" placeholder={t.email} required />
+  <input type="text" name="subject" placeholder={t.subject} required />
+  <textarea name="message" placeholder={t.message} rows={5} required />
+  <button type="submit" className="primary-btn">{t.send}</button>
+</form>
     </div>
   );
 };
