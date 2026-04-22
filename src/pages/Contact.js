@@ -5,7 +5,7 @@ import { API_BASE_URL } from "../config";
 
 function Contact() {
   const { language } = useContext(LanguageContext);
-  const t = translations[language].contact; // <-- hier nutzen wir den Kontakt-Block
+  const t = translations[language].contact;
 
   const [form, setForm] = useState({
     name: "",
@@ -41,7 +41,7 @@ function Contact() {
       } else {
         setStatus("error");
       }
-    } catch (err) {
+    } catch {
       setStatus("error");
     }
 
@@ -49,58 +49,65 @@ function Contact() {
   };
 
   return (
-    <div className="contact-container">
-      <h1>{t.contact}</h1>
+    <div className="contact-page">
 
-      <form onSubmit={handleSubmit} className="contact-form">
+      <div className="contact-card">
 
-        <input
-          type="text"
-          name="name"
-          placeholder={t.name}
-          value={form.name}
-          onChange={handleChange}
-          required
-        />
+        <h1 className="contact-title">{t.contact}</h1>
 
-        <input
-          type="email"
-          name="email"
-          placeholder={t.email}
-          value={form.email}
-          onChange={handleChange}
-          required
-        />
+        <form onSubmit={handleSubmit} className="contact-form">
 
-        <input
-          type="text"
-          name="subject"
-          placeholder={t.subject}
-          value={form.subject}
-          onChange={handleChange}
-        />
+          <input
+            type="text"
+            name="name"
+            placeholder={t.name}
+            value={form.name}
+            onChange={handleChange}
+            required
+          />
 
-        <textarea
-          name="message"
-          placeholder={t.message}
-          value={form.message}
-          onChange={handleChange}
-          required
-        />
+          <input
+            type="email"
+            name="email"
+            placeholder={t.email}
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
 
-        <button type="submit" disabled={loading}>
-          {loading ? "..." : t.send}
-        </button>
+          <input
+            type="text"
+            name="subject"
+            placeholder={t.subject}
+            value={form.subject}
+            onChange={handleChange}
+          />
 
-      </form>
+          <textarea
+            name="message"
+            placeholder={t.message}
+            value={form.message}
+            onChange={handleChange}
+            rows="5"
+            required
+          />
 
-      {status === "success" && (
-        <p style={{ color: "green" }}>{t.sendSuccess}</p>
-      )}
+          <button type="submit" disabled={loading}>
+            {loading ? "..." : t.send}
+          </button>
 
-      {status === "error" && (
-        <p style={{ color: "red" }}>{t.sendError}</p>
-      )}
+        </form>
+
+        {status === "success" && (
+          <p className="success-text">{t.sendSuccess}</p>
+        )}
+
+        {status === "error" && (
+          <p className="error-text">{t.sendError}</p>
+        )}
+
+      </div>
+
     </div>
   );
 }
