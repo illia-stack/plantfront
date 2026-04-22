@@ -215,6 +215,17 @@ margin-top:10px;
   gap: 12px;
 }
 
+.contact-form input,
+.contact-form textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+
+  /* Text zentrieren */
+  text-align: center;
+}
+
 .contact-form input:focus,
 .contact-form textarea:focus {
   border-color: #2e7d32;

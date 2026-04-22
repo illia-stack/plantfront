@@ -2,12 +2,11 @@ import React, { useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { LanguageContext } from "../context/LanguageContext";
 import { translations } from "../translations";
-import Comments from "./Comments";
+
 
 function PlantCard({ plant }) {
 
   const [showDesc, setShowDesc] = useState(false);
-  const [showComments, setShowComments] = useState(false); // ✅ MOVE HERE
 
   const { addToCart } = useContext(CartContext);
   const { language } = useContext(LanguageContext);
@@ -46,22 +45,6 @@ function PlantCard({ plant }) {
       </button>
 
 
-
-
-
-
-      {/* ✅ COMMENTS TOGGLE */}
-      <button
-        className="comments-toggle-btn"
-        onClick={() => setShowComments(!showComments)}
-      >
-        {showComments
-          ? t.comments.commentsButtonHide
-          : t.comments.commentsButtonShow}
-      </button>
-
-      {/* ✅ COMMENTS */}
-      {showComments && <Comments productId={plant.id} />}
 
 
 

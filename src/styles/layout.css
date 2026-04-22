@@ -89,9 +89,15 @@
   .theme-btn,
   .logout,
   a {
-    margin: 10px 0;
-    position: relative;
-    z-index: 1;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 6px;
+
+    transition: 0.2s;
+    color: white;
+  }
+  .nav-item:hover {
+    background: rgba(255, 255, 255, 0.15);
   }
 }
 
@@ -107,7 +113,3 @@
   }
 }
 
-#root, .layout {
-  min-height: 100vh; 
-  position: relative;
-}
