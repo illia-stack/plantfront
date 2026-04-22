@@ -12,7 +12,7 @@ function Cart() {
 
   const navigate = useNavigate();
 
-  const { user } = useContext(AuthContext);
+
   const {
     cart,
     increaseQty,

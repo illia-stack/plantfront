@@ -9,6 +9,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  z-index: 900;
 
   background-color: #27ae60;
   color: white;

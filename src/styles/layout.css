@@ -25,6 +25,7 @@
 /* RIGHT (desktop) */
 .nav-right {
   display: flex;
+  z-index: 1100;
   align-items: center;
   gap: 15px;
 }
@@ -73,6 +74,8 @@
   .logout,
   a {
     margin: 10px 0;
+    position: relative;
+    z-index: 1;
   }
 }
 
