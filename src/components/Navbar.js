@@ -44,9 +44,9 @@ function Navbar() {
       {/* RIGHT MENU */}
       <div className={`nav-right ${menuOpen ? "open" : ""}`}>
 
-        <div className="nav-item" onClick={() => handleNavigate("/")}>
+        <button className="primary-btn" onClick={() => handleNavigate("/")}>
           {t.home}
-        </div>
+        </button>
 
         <div className="nav-item contact-link" onClick={() => handleNavigate("/contact")}>
           {t.contact.contact}

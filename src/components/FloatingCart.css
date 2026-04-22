@@ -1,36 +1,30 @@
-
 .floating-cart {
-  position: sticky;
-  top: 20px;       /* Abstand vom oberen Rand des Containers */
-  align-self: flex-end; /* optional, wenn Sie rechts ausrichten */
-  margin-left: auto; /* schiebt es nach rechts */
-  width: fit-content;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+
+  z-index: 9999;
 
   display: flex;
   align-items: center;
   gap: 8px;
-  z-index: 900;
 
   background-color: #27ae60;
   color: white;
+
   padding: 10px 14px;
   border-radius: 999px;
+
   font-size: 14px;
   font-weight: 600;
+
   cursor: pointer;
   box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.15);
+
   transition: transform 0.2s ease;
 }
 
 
-
-/* Wenn der Benutzer mehr als 100px gescrollt hat, verschiebe den Cart */
-.floating-cart.scrolled {
-  transform: translateY(-40px);  /* Verschiebt den Warenkorb nach oben */
-  transition: transform 0.3s ease-in-out; /* Sanfte Animation */
-}
-
-/* Hover-Effekt */
 .floating-cart:hover {
-  transform: scale(1.1); /* Vergrößert das Element leicht beim Hover */
+  transform: scale(1.1);
 }
