@@ -48,6 +48,10 @@ function Navbar() {
           {t.home}
         </div>
 
+        <div className="nav-item contact-link" onClick={() => handleNavigate("/contact")}>
+          {t.contact.contact}
+        </div>
+
         <div className="nav-item" onClick={() => handleNavigate("/cart")}>
           🛒 ({cartCount})
         </div>

@@ -5,6 +5,7 @@ import { LanguageContext } from "./context/LanguageContext";
 import { CartContext } from "./context/CartContext";
 import { translations } from "./translations";
 import Navbar from "./components/Navbar";
+import Contact from "./pages/Contact";
 import PlantCard from "./components/PlantCard";
 import FloatingCart from "./components/FloatingCart";
 import Cart from "./pages/Cart";
@@ -138,12 +139,15 @@ function App() {
 
       {/* Always visible */}
       <Navbar />
+
        <FloatingCart />
       {/* Floating cart always visible */}
         <div className="layout">
          
             <Routes>
                   <Route path="/" element={<Home />} />
+
+                  <Route path="/contact" element={<Contact />} />
 
                   <Route path="/cart" element={<Cart />} />
 
