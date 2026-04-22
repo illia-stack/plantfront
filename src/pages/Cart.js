@@ -1,14 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { LanguageContext } from "../context/LanguageContext";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import { translations } from "../translations";
+
+import { API_BASE_URL } from "../config";
 
 function Cart() {
   const { language } = useContext(LanguageContext);
   const t = translations[language];
 
   const navigate = useNavigate();
+
 
   const {
     cart,
@@ -22,6 +25,29 @@ function Cart() {
     navigate("/delivery");
   };
 
+  const [products, setProducts] = useState([]);
+
+ 
+
+  useEffect(() => {
+
+    fetch(`${API_BASE_URL}/get-products.php?lang=${language}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Netzwerkantwort war nicht ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+      });
+  }, [language]);
+
+
+
   return (
     <div className="cart-container">
       <h1>{t.cart}</h1>
@@ -32,44 +58,55 @@ function Cart() {
         </div>
       ) : (
         <>
-          {cart.map((item) => (
-            <div key={item.id} className="cart-card">
-              <div className="cart-info">
-                <h3>{item.name}</h3>
+          {cart.map((item) => {
+            const product = products.find((p) => p.id === item.id);
 
-                <p>
-                  {Number(item.price).toFixed(2)} € × {item.quantity}
-                </p>
+            const name = product?.name || item.name;
+            const price = product?.price || item.price;
 
-                <div className="cart-qty">
-                  <button onClick={() => decreaseQty(item.id)}>-</button>
-                  <span>{item.quantity}</span>
-                  <button onClick={() => increaseQty(item.id)}>+</button>
+           
+
+            return (
+              <div key={item.id} className="cart-card">
+
+                <div className="cart-info">
+                  <h3>{name}</h3>
+                  <p>{Number(price).toFixed(2)} € × {item.quantity}</p>
+
+                  <div className="cart-qty">
+                    <button onClick={() => decreaseQty(item.id)}>-</button>
+                    <span>{item.quantity}</span>
+                    <button onClick={() => increaseQty(item.id)}>+</button>
+                  </div>
+
+                  <button
+                    className="remove-btn"
+                    onClick={() => removeFromCart(item.id)}
+                  >
+                    {t.remove}
+                  </button>
                 </div>
-
-                <button
-                  className="remove-btn"
-                  onClick={() => removeFromCart(item.id)}
-                >
-                  {t.remove}
-                </button>
               </div>
-            </div>
-          ))}
+            );
+          })}
 
           <div className="cart-total">
             <h2>
               {t.total}: {Number(total).toFixed(2)} €
             </h2>
 
+           
+
             <button className="primary-btn" onClick={handleCheckout}>
               {t.checkout}
             </button>
           </div>
+          
         </>
       )}
     </div>
   );
 }
+
 
 export default Cart;
