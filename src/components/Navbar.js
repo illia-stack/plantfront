@@ -2,14 +2,12 @@ import React, { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { LanguageContext } from "../context/LanguageContext";
 import { CartContext } from "../context/CartContext";
-import { AuthContext } from "../context/AuthContext";
 import { ThemeContext } from "../context/ThemeContext";
 import { translations } from "../translations";
 import logo from "../logo.svg";
 
 function Navbar() {
   const { language, changeLanguage } = useContext(LanguageContext);
-  const { user, logout } = useContext(AuthContext);
   const { cart } = useContext(CartContext);
   const { dark, setDark } = useContext(ThemeContext);
 
@@ -17,10 +15,8 @@ function Navbar() {
   const navigate = useNavigate();
 
   const [menuOpen, setMenuOpen] = useState(false);
-
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  // 🔒 close menu helper (important for mobile UX)
   const handleNavigate = (path) => {
     setMenuOpen(false);
     navigate(path);
@@ -70,28 +66,6 @@ function Navbar() {
         <button className="theme-btn" onClick={() => setDark(!dark)}>
           {dark ? "☀️" : "🌙"}
         </button>
-
-        <div className="nav-item" onClick={() => handleNavigate("/contact")}>
-          {t.contact || "Contact"}
-        </div>
-
-        {user ? (
-          <>
-            <span className="user">Hi, {user.name}</span>
-            <button className="logout" onClick={logout}>
-              Logout
-            </button>
-          </>
-        ) : (
-          <>
-            <Link onClick={() => setMenuOpen(false)} to="/login">
-              Login
-            </Link>
-            <Link onClick={() => setMenuOpen(false)} to="/register">
-              Register
-            </Link>
-          </>
-        )}
 
       </div>
     </nav>
