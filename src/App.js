@@ -1,16 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import { API_BASE_URL } from "./config";
+import { LanguageContext } from "./context/LanguageContext";
+import { CartContext } from "./context/CartContext";
+import { translations } from "./translations";
 import Navbar from "./components/Navbar";
-
 import PlantCard from "./components/PlantCard";
 import FloatingCart from "./components/FloatingCart";
 import Cart from "./pages/Cart";
 import Success from "./pages/Success";
 import Cancel from "./pages/Cancel";
 import Delivery from "./pages/Delivery";
-import { LanguageContext } from "./context/LanguageContext";
-import { translations } from "./translations";
+
+
 
 
 
@@ -22,7 +24,7 @@ import { translations } from "./translations";
 function Home() {
 
   const { language } = useContext(LanguageContext);
-
+  const { clearCart } = useContext(CartContext);
   const t = translations[language];
 
   const [plants, setPlants] = useState([]);
@@ -63,6 +65,12 @@ function Home() {
     fetchPlants();
 
   }, [language]);
+
+
+
+  useEffect(() => {
+    clearCart();
+  }, []); //Warenkorb beim Erkunden leer lassen
 
 
   const categories = [
