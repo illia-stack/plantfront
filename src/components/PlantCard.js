@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { LanguageContext } from "../context/LanguageContext";
 import { translations } from "../translations";
+import Comments from "./Comments";
 
 
 function PlantCard({ plant }) {
@@ -13,40 +14,41 @@ function PlantCard({ plant }) {
   const t = translations[language];
 
   return (
-    <div
-      className="card"
-      onMouseEnter={() => setShowDesc(true)}
-      onMouseLeave={() => setShowDesc(false)}
-    >
+    <div className="card">
 
-      <img
-        src={process.env.PUBLIC_URL + "/product_images/" + plant.image_url}
-        alt={plant.name}
-        className="plant-image"
-      />
+      <div className="card-content">
 
-      <h3 className="plant-name">{plant.name}</h3>
+        <img
+          src={process.env.PUBLIC_URL + "/product_images/" + plant.image_url}
+          alt={plant.name}
+          className="plant-image"
+        />
 
-      <p className="plant-price">
-        €{Number(plant.price).toFixed(2)}
-      </p>
+        <h3 className="plant-name">{plant.name}</h3>
 
-      {showDesc && (
-        <p className="plant-description">
-          {plant.description}
+        <p className="plant-price">
+          €{Number(plant.price).toFixed(2)}
         </p>
-      )}
 
-      <button
-        className="primary-btn"
-        onClick={() => addToCart(plant)}
-      >
-        {t.addToCart}
-      </button>
+        {showDesc && (
+          <p className="plant-description">
+            {plant.description}
+          </p>
+        )}
 
+        <button
+          className="primary-btn"
+          onClick={() => addToCart(plant)}
+        >
+          {t.addToCart}
+        </button>
 
+      </div>
 
-
+      {/* Comments Bereich klar getrennt */}
+      <div className="card-comments">
+        <Comments productId={plant.id} />
+      </div>
 
     </div>
   );

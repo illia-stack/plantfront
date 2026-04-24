@@ -68,6 +68,11 @@ export const translations = {
       fillFields: "Please fill all fields",
       postError: "Failed to post comment (error: {error})",
       postSuccess: "Comment posted successfully!"
+    },
+    api: {
+      invalidJson: "Invalid JSON response from server",
+      requestFailed: "Request failed",
+      httpError: "HTTP error",
     }
   },
 
@@ -140,6 +145,11 @@ export const translations = {
       fillFields: "Bitte füllen Sie alle Felder aus",
       postError: "Kommentar konnte nicht gesendet werden (Fehler: {error})",
       postSuccess: "Kommentar erfolgreich gesendet!"
+    },
+    api: {
+      invalidJson: "Ungültige Server-Antwort",
+      requestFailed: "Anfrage fehlgeschlagen",
+      httpError: "HTTP-Fehler",
     }
   },
 
@@ -212,6 +222,11 @@ export const translations = {
       fillFields: "Por favor complete todos los campos",
       postError: "No se pudo publicar el comentario (error: {error})",
       postSuccess: "¡Comentario publicado con éxito!"
+    },
+    api: {
+      invalidJson: "Respuesta JSON inválida del servidor",
+      requestFailed: "La solicitud falló",
+      httpError: "Error HTTP",
     }
   }
 };

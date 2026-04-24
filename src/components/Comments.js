@@ -8,87 +8,143 @@ function Comments({ productId }) {
   const t = translations[language].comments;
 
   const [comments, setComments] = useState([]);
+  const [show, setShow] = useState(false);
   const [username, setUsername] = useState("");
-  const [comment, setComment] = useState("");
+  const [text, setText] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  // Fetch comments
+  // 🔄 Kommentare laden
   const fetchComments = async () => {
     try {
-      const res = await fetch(`${API_BASE_URL}/comments.php?product_id=${productId}`);
-      if (!res.ok) throw new Error(`Failed to fetch comments: ${res.status}`);
-      const data = await res.json();
-      setComments(Array.isArray(data) ? data : []);
+      const res = await fetch(
+        `${API_BASE_URL}/comments.php?product_id=${productId}`
+      );
+
+      if (!res.ok) throw new Error(t.api.httpError);
+
+      const text = await res.text();
+
+      let data;
+      try {
+        data = text ? JSON.parse(text) : [];
+      } catch {
+        throw new Error(t.api.invalidJson);
+      }
+
+      setComments(data);
     } catch (err) {
-      console.error("Error fetching comments:", err);
-      setComments([]);
+      console.error(t.fetchError.replace("{status}", err.message));
     }
   };
 
-  // Load comments on product change
   useEffect(() => {
-    if (productId) fetchComments();
-  }, [productId]);
+  if (show) fetchComments();
+}, [show, productId]);
 
-  // Submit comment
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!username || !comment) {
+  // ➕ Kommentar posten
+  const postComment = async () => {
+    if (!username || !text) {
       alert(t.fillFields);
       return;
     }
 
+    setLoading(true);
+
     try {
       const res = await fetch(`${API_BASE_URL}/comments.php`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ product_id: productId, username, comment })
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          product_id: productId,
+          username,
+          comment: text
+        })
       });
 
-      if (!res.ok) throw new Error(t.fetchError.replace("{status}", res.status));
+      const textRes = await res.text();
 
-      const result = await res.json();
-      if (!result.success) {
-        alert(t.postError.replace("{error}", result.error || ""));
-        return;
+      let data;
+      try {
+        data = textRes ? JSON.parse(textRes) : null;
+      } catch {
+        throw new Error(t.api.invalidJson);
+      }
+
+      if (!res.ok || !data?.success) {
+        throw new Error(data?.error || t.api.requestFailed);
       }
 
       setUsername("");
-      setComment("");
+      setText("");
       fetchComments();
-      alert(t.postSuccess);
 
+      alert(t.postSuccess);
     } catch (err) {
-      console.error("Error posting comment:", err);
+      alert(t.postError.replace("{error}", err.message));
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="comments">
-      <h3>{t.title}</h3>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          placeholder={t.name}
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <textarea
-          placeholder={t.placeholder}
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-        />
-        <button type="submit" className="primary-btn">{t.post}</button>
-      </form>
+      <button
+        className="comments-toggle-btn"
+        onClick={() => setShow(!show)}
+      >
+        {show ? t.commentsButtonHide : t.commentsButtonShow}
+      </button>
 
-      {comments.length === 0 ? (
-        <p>{t.empty}</p>
-      ) : (
-        comments.map((c, idx) => (
-          <div key={c.id || idx} className="comment">
-            <strong>{typeof c.username === "string" ? c.username : JSON.stringify(c.username)}</strong>
-            <p>{typeof c.comment === "string" ? c.comment : JSON.stringify(c.comment)}</p>
+      {show && (
+        <div className="comments-box">
+
+          <h4 className="comments-title">{t.title}</h4>
+
+          <div className="comments-list">
+            {comments.length === 0 ? (
+              <p className="comments-empty">{t.empty}</p>
+            ) : (
+              comments.map((c) => (
+                <div key={c.id} className="comment-item">
+                  <div className="comment-header">
+                    <strong>{c.username}</strong>
+                    <small>
+                      {new Date(c.created_at).toLocaleString(language)}
+                    </small>
+                  </div>
+                  <p>{c.comment}</p>
+                </div>
+              ))
+            )}
           </div>
-        ))
+
+          <input
+            type="text"
+            placeholder={t.name}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="comments-input"
+          />
+
+          <textarea
+            placeholder={t.placeholder}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            className="comments-textarea"
+          />
+
+          <button
+            onClick={postComment}
+            disabled={loading}
+            className="comments-submit-btn"
+          >
+            {loading ? "..." : t.post}
+          </button>
+
+        </div>
       )}
     </div>
   );
