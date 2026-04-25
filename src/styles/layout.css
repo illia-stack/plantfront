@@ -43,7 +43,12 @@
   background: rgba(255, 255, 255, 0.2);
 }
 
-
+.nav-item{
+  text-align: center;
+}
+.nav-item .contact-link {
+  text-align: center;
+}
 
 
 /* hamburger hidden on desktop */
