@@ -51,7 +51,7 @@ function Login() {
 
   return (
     <div className="auth-page">
-      <div className="auth-card">
+      <div className="auth-container">
 
         <h2>{t.loginTitle}</h2>
 
@@ -87,7 +87,10 @@ function Login() {
 
         <div className="auth-switch">
           {language === "de" ? "Noch kein Konto?" : "No account?"}{" "}
-          <span className="auth-link" onClick={() => window.location.href = "/register"}>
+          <span
+            className="auth-link"
+            onClick={() => window.location.href = "/register"}
+          >
             {t.registerButton}
           </span>
         </div>

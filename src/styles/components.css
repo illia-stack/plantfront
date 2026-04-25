@@ -203,6 +203,7 @@ margin-top:10px;
   text-align: center;
   margin-bottom: 20px;
   color: #2e7d32;
+  width: 100%;
 }
 
 .contact-form {
@@ -217,8 +218,6 @@ margin-top:10px;
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 15px;
-
-  /* Text zentrieren */
   text-align: center;
 }
 
@@ -275,7 +274,7 @@ margin-top:10px;
   padding: 80px 20px;
 }
 
-.auth-card {
+.auth-container {
   width: 100%;
   max-width: 420px;
 
@@ -288,15 +287,14 @@ margin-top:10px;
   text-align: center;
 }
 
-.auth-card h2 {
-  margin-bottom: 20px;
-  color: #2e7d32;
+/* Dark Mode Support */
+body.dark .auth-container {
+  background: #1e1e1e;
 }
 
 .auth-form {
   display: flex;
   flex-direction: column;
-  text-align: center;
   gap: 15px;
 }
 
@@ -351,6 +349,21 @@ margin-top:10px;
 
 
 
+/* GLOBAL FORM CENTERING FIX */
+.auth-form input,
+.auth-form textarea,
+.contact-form input,
+.contact-form textarea {
+  text-align: center;
+}
+
+/* Placeholder auch zentrieren */
+.auth-form input::placeholder,
+.auth-form textarea::placeholder,
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  text-align: center;
+}
 
 
 
@@ -529,7 +542,9 @@ border-color:#2e7d32;
 
 
 
-
+input {
+  text-align: center;
+}
 
 
 

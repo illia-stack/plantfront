@@ -57,7 +57,7 @@ function Register() {
 
   return (
     <div className="auth-page">
-      <div className="auth-card">
+      <div className="auth-container">
 
         <h2>{t.registerTitle}</h2>
 
@@ -101,7 +101,10 @@ function Register() {
 
         <div className="auth-switch">
           {language === "de" ? "Schon ein Konto?" : "Already have an account?"}{" "}
-          <span className="auth-link" onClick={() => window.location.href = "/login"}>
+          <span
+            className="auth-link"
+            onClick={() => window.location.href = "/login"}
+          >
             {t.loginButton}
           </span>
         </div>
