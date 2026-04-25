@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { LanguageContext } from "../context/LanguageContext";
+import { AuthContext } from "../context/AuthContext";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import { translations } from "../translations";
@@ -8,6 +9,7 @@ import { API_BASE_URL } from "../config";
 
 function Cart() {
   const { language } = useContext(LanguageContext);
+  const { user } = useContext(AuthContext);
   const t = translations[language];
 
   const navigate = useNavigate();
@@ -20,6 +22,12 @@ function Cart() {
     removeFromCart,
     total
   } = useContext(CartContext);
+
+  let finalTotal = total;
+  if (user && user.id) {
+    finalTotal = total * 0.95;
+  }
+
 
   const handleCheckout = () => {
     navigate("/delivery");
@@ -45,6 +53,9 @@ function Cart() {
         console.error("Fetch error:", error);
       });
   }, [language]);
+
+
+
 
 
 
@@ -92,9 +103,14 @@ function Cart() {
 
           <div className="cart-total">
             <h2>
-              {t.total}: {Number(total).toFixed(2)} €
+              {t.total}: {Number(finalTotal).toFixed(2)} €
             </h2>
 
+            {user && (
+              <p style={{ color: "green" }}>
+                ✅ {t.discountApplied}
+              </p>
+            )}
            
 
             <button className="primary-btn" onClick={handleCheckout}>

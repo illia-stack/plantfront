@@ -2,8 +2,11 @@ import React, { useState, useContext } from "react";
 import { API_BASE_URL } from "../config";
 import { translations } from "../translations";
 import { LanguageContext } from "../context/LanguageContext";
+import { AuthContext } from "../context/AuthContext";
 
 function Delivery() {
+
+  const { user } = useContext(AuthContext);
 
   const [form, setForm] = useState({
     name: "",
@@ -15,7 +18,7 @@ function Delivery() {
     phone: ""
   });
 
-  const user = JSON.parse(localStorage.getItem("user")) || null;
+  
 
   const { language } = useContext(LanguageContext);
   const t = translations[language];

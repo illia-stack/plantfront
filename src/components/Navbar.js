@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { LanguageContext } from "../context/LanguageContext";
+import { AuthContext } from "../context/AuthContext";
 import { CartContext } from "../context/CartContext";
 import { ThemeContext } from "../context/ThemeContext";
 import { translations } from "../translations";
@@ -8,6 +9,7 @@ import logo from "../logo.svg";
 
 function Navbar() {
   const { language, changeLanguage } = useContext(LanguageContext);
+  const { user, logout } = useContext(AuthContext);
   const { cart } = useContext(CartContext);
   const { dark, setDark } = useContext(ThemeContext);
 
@@ -27,8 +29,13 @@ function Navbar() {
     setMenuOpen(false);
   };
 
+
+
+
   return (
     <nav className="navbar">
+
+
 
       {/* LEFT */}
       <div className="nav-left" onClick={() => handleNavigate("/")}>
@@ -41,6 +48,9 @@ function Navbar() {
         ☰
       </div>
 
+
+
+
       {/* RIGHT MENU */}
       <div className={`nav-right ${menuOpen ? "open" : ""}`}>
 
@@ -51,6 +61,26 @@ function Navbar() {
         <div className="nav-item contact-link" onClick={() => handleNavigate("/contact")}>
           {t.contact.contact}
         </div>
+
+
+      {/*Registrierung bzw Anmeldung*/}
+      {user ? (
+        <>
+          <span>👤 {user.name}</span>
+          <button onClick={logout}>Logout</button>
+        </>
+      ) : (
+        <>
+          <button onClick={() => handleNavigate("/login")}>
+            {t.loginButton}
+          </button>
+          <button onClick={() => handleNavigate("/register")}>
+            {t.registerButton}
+          </button>
+        </>
+      )}
+
+
 
         <div className="nav-item" onClick={() => handleNavigate("/cart")}>
           🛒 ({cartCount})
@@ -66,6 +96,7 @@ function Navbar() {
             />
           ))}
         </div>
+
 
         <button className="theme-btn" onClick={() => setDark(!dark)}>
           {dark ? "☀️" : "🌙"}

@@ -2,10 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import { API_BASE_URL } from "./config";
 import { LanguageContext } from "./context/LanguageContext";
+import { AuthProvider } from "./context/AuthContext";
 import { CartContext } from "./context/CartContext";
 import { translations } from "./translations";
 import Navbar from "./components/Navbar";
 import Contact from "./pages/Contact";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 import PlantCard from "./components/PlantCard";
 import FloatingCart from "./components/FloatingCart";
 import Cart from "./pages/Cart";
@@ -148,6 +151,10 @@ function App() {
                   <Route path="/" element={<Home />} />
 
                   <Route path="/contact" element={<Contact />} />
+
+                  <Route path="/login" element={<Login />} />
+
+                  <Route path="/register" element={<Register />} />
 
                   <Route path="/cart" element={<Cart />} />
 

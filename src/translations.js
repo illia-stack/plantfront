@@ -15,6 +15,8 @@ export const translations = {
     registerSuccess: "Account created successfully!",
     registerFailed: "Registration failed, please try again.",
 
+    discountApplied: "5% discount applied",
+
     contact: {
       contact: "Contact Us",
       name: "Name",
@@ -91,6 +93,8 @@ export const translations = {
     registerButton: "Registrieren",
     registerSuccess: "Konto erfolgreich erstellt!",
     registerFailed: "Registrierung fehlgeschlagen, bitte erneut versuchen.",
+    
+    discountApplied: "5% Rabatt angewendet",
 
     contact: {
       contact: "Kontaktieren Sie uns",
@@ -168,6 +172,9 @@ export const translations = {
     registerButton: "Registrarse",
     registerSuccess: "¡Cuenta creada con éxito!",
     registerFailed: "Error al registrarse, inténtelo de nuevo.",
+    
+    discountApplied: "Descuento del 5% aplicado",
+
 
     contact: {
       contact: "Contáctanos",
