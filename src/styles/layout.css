@@ -27,21 +27,10 @@
   display: flex;
   z-index: 1100;
   align-items: center;
+  justify-content: center; /* alles horizontal zentrieren */
   gap: 15px;
 }
-/* Kontakt-Link nach rechts schieben */
-.nav-right .contact-link {
-  margin-left: auto; /* schiebt alles rechts davon nach rechts */
-  cursor: pointer;
-  font-weight: bold;
-  padding: 5px 10px;
-  border-radius: 5px;
-  transition: background 0.2s;
-}
 
-.nav-right .contact-link:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
 
 
 
@@ -100,6 +89,30 @@
     background: rgba(255, 255, 255, 0.15);
   }
 }
+
+
+
+
+
+/*Kontakt-Verlinkung(rechte Navigationsleiste)*/
+.contact-link {
+  cursor: pointer;
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: 0.2s;
+  color: white;
+}
+
+.contact-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+
+
+
+
+
 
 
 
