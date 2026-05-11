@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import { API_BASE_URL } from "./config";
 import { LanguageContext } from "./context/LanguageContext";
-import { AuthProvider } from "./context/AuthContext";
+import { AuthProvider, AuthContext } from "./context/AuthContext";
 import AdminDashboard from "./pages/AdminDashboard";
 import { CartContext } from "./context/CartContext";
 import { translations } from "./translations";
