@@ -138,6 +138,8 @@ function Home() {
 // APP ROUTER
 // ---------------------------
 function App() {
+
+  const { user } = useContext(AuthContext);
   return (
     <>
 
