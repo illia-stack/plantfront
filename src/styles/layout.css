@@ -95,6 +95,16 @@
 
 
 /*Kontakt-Verlinkung(rechte Navigationsleiste)*/
+
+.nav-right .contact-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+
 .contact-link {
   cursor: pointer;
   font-weight: bold;

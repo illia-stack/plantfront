@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { API_BASE_URL } from "./config";
 import { LanguageContext } from "./context/LanguageContext";
 import { AuthProvider } from "./context/AuthContext";
+import AdminDashboard from "./pages/AdminDashboard";
 import { CartContext } from "./context/CartContext";
 import { translations } from "./translations";
 import Navbar from "./components/Navbar";
@@ -163,6 +164,15 @@ function App() {
                   <Route path="/delivery" element={<Delivery />} />
 
                   <Route path="/success" element={<Success />} />
+
+                   <Route
+                      path="/admin"
+                      element={
+                        user?.role === "admin"
+                            ? <AdminDashboard />
+                            : <Login />
+                      }
+                  />
 
               
             </Routes>

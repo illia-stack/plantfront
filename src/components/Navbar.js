@@ -67,6 +67,13 @@ function Navbar() {
       {user ? (
         <>
           <span>👤 {user.name}</span>
+
+          {user?.role === "admin" && (
+            <button onClick={() => handleNavigate("/admin")}>
+              Admin
+            </button>
+          )}
+
           <button onClick={logout}>Logout</button>
         </>
       ) : (
