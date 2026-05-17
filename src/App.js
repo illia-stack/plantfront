@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, Suspense } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import { API_BASE_URL } from "./config";
 import { LanguageContext } from "./context/LanguageContext";
@@ -7,18 +7,15 @@ import AdminDashboard from "./pages/AdminDashboard";
 import { CartContext } from "./context/CartContext";
 import { translations } from "./translations";
 import Navbar from "./components/Navbar";
-const Contact = React.lazy(() => import("./pages/Contact"));
-const Register = React.lazy(() => import("./pages/Register"));
-const Login = React.lazy(() => import("./pages/Login"));
+import Contact from "./pages/Contact";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 import PlantCard from "./components/PlantCard";
 import FloatingCart from "./components/FloatingCart";
-const Cart = React.lazy(() => import("./pages/Cart"));
-const Success = React.lazy(() => import("./pages/Success"));
-const Cancel = React.lazy(() => import("./pages/Cancel"));
-const Delivery = React.lazy(() => import("./pages/Delivery"));
-
-
-
+import Cart from "./pages/Cart";
+import Success from "./pages/Success";
+import Cancel from "./pages/Cancel";
+import Delivery from "./pages/Delivery";
 
 
 
