@@ -83,14 +83,25 @@ function Contact() {
             onChange={handleChange}
           />
 
-          <textarea
-            name="message"
-            placeholder={t.message}
-            value={form.message}
-            onChange={handleChange}
-            rows="5"
-            required
-          />
+          {/* Textarea mit Wrapper für zentrierten Placeholder */}
+          <div className="textarea-wrapper">
+            <textarea
+              name="message"
+              value={form.message}
+              onChange={handleChange}
+              rows="5"
+              required
+            />
+            {/* Der span ersetzt den Platzhalter */}
+            {form.message === "" && (
+              <span className="textarea-placeholder">
+                {t.message}
+              </span>
+            )}
+          </div>
+
+
+
 
           <button type="submit" disabled={loading}>
             {loading ? "..." : t.send}
