@@ -212,6 +212,7 @@ margin-top:10px;
   gap: 12px;
 }
 
+
 .contact-form input,
 .contact-form textarea {
   padding: 12px;
@@ -221,10 +222,35 @@ margin-top:10px;
   text-align: center;
 }
 
+.contact-form textarea {
+  height: 120px;
+}
+
 .contact-form input:focus,
 .contact-form textarea:focus {
   border-color: #2e7d32;
   outline: none;
+}
+@media (max-width: 600px) {
+  .contact-card {
+    width: 90%;
+    padding: 16px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 16px;   /* wichtig für iOS (Zoom vermeiden) */
+    padding: 14px;
+    text-align: center;
+  }
+
+  .contact-form textarea {
+    height: 140px;
+  }
+
+  .contact-title {
+    font-size: 22px;
+  }
 }
 
 
