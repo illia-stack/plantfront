@@ -5,7 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 import { CartContext } from "../context/CartContext";
 import { ThemeContext } from "../context/ThemeContext";
 import { translations } from "../translations";
-import logo from "../logo.svg";
+
 
 function Navbar() {
   const { language, changeLanguage } = useContext(LanguageContext);
@@ -39,7 +39,6 @@ function Navbar() {
 
       {/* LEFT */}
       <div className="nav-left" onClick={() => handleNavigate("/")}>
-        <img src={logo} alt="logo" className="logo" />
         <h2>{t.title}</h2>
       </div>
 
