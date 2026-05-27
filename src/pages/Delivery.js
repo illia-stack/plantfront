@@ -74,80 +74,76 @@ function Delivery() {
     }
   };
 
-  return (
-    <div style={{ padding: "40px" }}>
-      <h2>{t.deliveryTitle}</h2>
+      return (
+        <div className="delivery-container">
+          <h2>{t.deliveryTitle}</h2>
 
-      <form onSubmit={handleSubmit}>
-        <input
-          name="name"
-          placeholder={t.name || "Name"}
-          value={form.name}
-          onChange={handleChange}
-          required
-        />
-        <br /><br />
+          <form onSubmit={handleSubmit} className="delivery-form">
 
-        <input
-          name="address"
-          placeholder={t.address || "Address"}
-          value={form.address}
-          onChange={handleChange}
-          required
-        />
-        <br /><br />
+            <input
+              name="name"
+              placeholder={t.name || "Name"}
+              value={form.name}
+              onChange={handleChange}
+              required
+            />
 
-        <input
-          name="city"
-          placeholder={t.city || "City"}
-          value={form.city}
-          onChange={handleChange}
-          required
-        />
-        <br /><br />
+            <input
+              name="address"
+              placeholder={t.address || "Address"}
+              value={form.address}
+              onChange={handleChange}
+              required
+            />
 
-        <input
-          name="postal"
-          placeholder={t.postal || "Postal code"}
-          value={form.postal}
-          onChange={handleChange}
-          required
-        />
-        <br /><br />
+            <input
+              name="city"
+              placeholder={t.city || "City"}
+              value={form.city}
+              onChange={handleChange}
+              required
+            />
 
-        <input
-          name="country"
-          placeholder={t.country || "Country"}
-          value={form.country}
-          onChange={handleChange}
-          required
-        />
-        <br /><br />
+            <input
+              name="postal"
+              placeholder={t.postal || "Postal code"}
+              value={form.postal}
+              onChange={handleChange}
+              required
+            />
 
-        <input
-          name="email"
-          placeholder={t.email || "E-mail"}
-          value={form.email}
-          onChange={handleChange}
-          required
-        />
-        <br /><br />
+            <input
+              name="country"
+              placeholder={t.country || "Country"}
+              value={form.country}
+              onChange={handleChange}
+              required
+            />
 
-        <input
-          name="phone"
-          placeholder={t.phone || "Phone"}
-          value={form.phone}
-          onChange={handleChange}
-          required
-        />
-        <br /><br />
+            <input
+              name="email"
+              type="email"
+              placeholder={t.email || "E-mail"}
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
 
-        <button type="submit">
-          {t.deliverySubmit || "Save Delivery Details"}
-        </button>
-      </form>
-    </div>
-  );
+            <input
+              name="phone"
+              placeholder={t.phone || "Phone"}
+              value={form.phone}
+              onChange={handleChange}
+              required
+            />
+
+            <button type="submit" className="primary-btn">
+              {t.deliverySubmit || "Save Delivery Details"}
+            </button>
+
+          </form>
+        </div>
+      );
 }
 
 export default Delivery;
