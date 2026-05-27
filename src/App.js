@@ -121,7 +121,7 @@ function Home() {
       <div className="products">
 
         {loading ? (  
-          <div className="loader"> Loading...</div>
+          <div className="loader"></div>
         ) : filteredPlants.length > 0 ? (
           filteredPlants.map((plant) => (
             <PlantCard key={plant.id} plant={plant} />
@@ -131,6 +131,7 @@ function Home() {
         )}
 
       </div>
+
 
     </div>
   );
