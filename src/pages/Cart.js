@@ -81,13 +81,13 @@ function Cart() {
               <div key={item.id} className="cart-card">
 
                 <div className="cart-info">
-                  <h3>{name}</h3>
-                  <p>{Number(price).toFixed(2)} € × {item.quantity}</p>
+                  <h3 className="cart-name">{name}</h3>
+                  <p className="cart-price">{Number(price).toFixed(2)} € × {item.quantity}</p>
 
                   <div className="cart-qty">
-                    <button onClick={() => decreaseQty(item.id)}>-</button>
-                    <span>{item.quantity}</span>
-                    <button onClick={() => increaseQty(item.id)}>+</button>
+                    <button className="qty-btn" onClick={() => decreaseQty(item.id)}>-</button>
+                    <span className="qty-value">{item.quantity}</span>
+                    <button className="qty-btn" onClick={() => increaseQty(item.id)}>+</button>
                   </div>
 
                   <button
