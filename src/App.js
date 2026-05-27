@@ -94,12 +94,14 @@ function Home() {
     <div style={{ padding: "20px" }}>
 
       {/* CATEGORY FILTER */}
-      <div style={{ marginBottom: "20px" }}>
+      <div className="category-filter">
         {categories.map((category) => (
           <button
             key={category}
             onClick={() => setSelectedCategory(category)}
-            style={{ marginRight: "10px" }}
+            className={`category-btn ${
+              selectedCategory === category ? "active" : ""
+            }`}
           >
             {category}
           </button>

@@ -3,6 +3,7 @@ import { API_BASE_URL } from "../config";
 import { translations } from "../translations";
 import { LanguageContext } from "../context/LanguageContext";
 import { AuthContext } from "../context/AuthContext";
+import { CartContext } from "../context/CartContext";
 
 function Delivery() {
 
@@ -19,7 +20,7 @@ function Delivery() {
   });
 
   
-
+  const { cart } = useContext(CartContext);
   const { language } = useContext(LanguageContext);
   const t = translations[language];
 
@@ -33,14 +34,13 @@ function Delivery() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const rawCart = JSON.parse(localStorage.getItem("cart")) || [];
-    const preparedCart = rawCart.map(item => ({
+    const preparedCart = cart.map(item => ({
       name: item.name,
       price: item.price,
       quantity: item.quantity
     }));
 
-    try {
+      try {
       const response = await fetch(`${API_BASE_URL}/create-checkout-session.php`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

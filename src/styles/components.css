@@ -142,6 +142,40 @@ margin-top:10px;
 
 
 
+.category-filter {
+  display: flex;
+  justify-content: center;   /* 👉 Zentriert horizontal */
+  flex-wrap: wrap;           /* 👉 Responsive */
+  gap: 10px;                 /* 👉 Abstand zwischen Buttons */
+  margin-bottom: 30px;
+}
+
+.category-btn {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+  background-color: white;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.category-btn:hover {
+  background-color: #2ecc71;
+  color: white;
+  border-color: #2ecc71;
+}
+
+.category-btn.active {
+  background-color: #2ecc71;
+  color: white;
+  border-color: #2ecc71;
+}
+
+
+
+
+
+
 
 .comments {
   margin-top: 20px;
