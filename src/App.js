@@ -30,6 +30,7 @@ function Home() {
   const t = translations[language];
 
   const [plants, setPlants] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("All");
 
         useEffect(() => {
@@ -45,11 +46,11 @@ function Home() {
   useEffect(() => {
 
     const fetchPlants = async () => {
-      try {
-
-        const response = await fetch(
-          `${API_BASE_URL}/get-products.php?lang=${language}`
-        );
+        try {
+          setLoading(true);
+          const response = await fetch(
+            `${API_BASE_URL}/get-products.php?lang=${language}`
+          );
 
         if (!response.ok) throw new Error("Failed to fetch plants");
 
@@ -58,9 +59,9 @@ function Home() {
         setPlants(data);
 
       } catch (error) {
-
         console.error("Error fetching plants:", error);
-
+      } finally {
+        setLoading(false);  // 👈 Loading beenden
       }
     };
 
@@ -119,8 +120,12 @@ function Home() {
       {/* PRODUCTS */}
       <div className="products">
 
-        {filteredPlants.length > 0 ? (
-          filteredPlants.map((plant) => <PlantCard key={plant.id} plant={plant} />)
+        {loading ? (  
+          <div className="loader"> Loading...</div>
+        ) : filteredPlants.length > 0 ? (
+          filteredPlants.map((plant) => (
+            <PlantCard key={plant.id} plant={plant} />
+          ))
         ) : (
           <p>{t.noProducts}</p>
         )}
