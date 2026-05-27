@@ -78,7 +78,6 @@ text-align: left;
 } 
 @media (max-width: 768px) {
   .navbar {
-    flex-direction: column;
     gap: 10px;
   }
 
