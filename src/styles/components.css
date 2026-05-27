@@ -507,10 +507,16 @@ border-radius:6px;
 transition: background 0.2s, transform 0.2s; 
 } 
 .cart-buttons .remove-btn { 
-background-color: #c62828; 
-} 
+margin-top: 10px;
+background: #e53935;
+color: white;
+border: none;
+padding: 8px 14px;
+border-radius: 6px;
+cursor: pointer;
+}
 .cart-buttons .remove-btn:hover { 
-background-color: #922b21; 
+background: #b71c1c; 
 } 
 
 .qty-btn {
