@@ -441,13 +441,17 @@ body.dark .auth-container {
 
 /* CART */ 
 .cart-title{ 
-text-align:center; 
+text-align: center; 
+width: 100%;
 margin-bottom:30px; 
 } 
 .cart-container{ 
 padding:40px; 
 max-width:1200px; 
 margin:120px auto 60px auto; 
+display: flex;
+flex-direction: column; /* 👈 wichtig */
+align-items: center;
 } 
 
 .cart-info {
@@ -518,6 +522,16 @@ cursor: pointer;
 .cart-buttons .remove-btn:hover { 
 background: #b71c1c; 
 } 
+.cart-empty {
+  display: flex;
+  flex-direction: column;   /* 👈 wichtig */
+  justify-content: center;  /* vertikal */
+  align-items: center;      /* horizontal */
+
+  height: 60vh;
+  text-align: center;
+}
+
 
 .qty-btn {
   width: 32px;
