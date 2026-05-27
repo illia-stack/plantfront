@@ -42,15 +42,14 @@ function Navbar() {
         <h2>{t.title}</h2>
       </div>
 
+
+    {/* RIGHT MENU */}
+    <div className="nav-right-wrapper">
       {/* HAMBURGER */}
       <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
         ☰
       </div>
 
-
-
-
-          {/* RIGHT MENU */}
       <div className={`nav-right ${menuOpen ? "open" : ""}`}>
 
           <button className="nav-btn" onClick={() => handleNavigate("/")}>
@@ -113,6 +112,7 @@ function Navbar() {
           </button>
 
       </div>
+    </div>  
     </nav>
   );
 }

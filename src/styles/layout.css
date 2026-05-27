@@ -85,6 +85,13 @@
   .nav-right.open {
     display: flex;
   }
+  .nav-right-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+
 
   .nav-item,
   .flags,
