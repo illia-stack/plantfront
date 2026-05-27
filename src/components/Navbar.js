@@ -50,63 +50,67 @@ function Navbar() {
 
 
 
-      {/* RIGHT MENU */}
+          {/* RIGHT MENU */}
       <div className={`nav-right ${menuOpen ? "open" : ""}`}>
 
-        <button className="primary-btn" onClick={() => handleNavigate("/")}>
-          {t.home}
-        </button>
+          <button className="nav-btn" onClick={() => handleNavigate("/")}>
+            {t.home}
+          </button>
 
-        <div className="nav-item contact-link" onClick={() => handleNavigate("/contact")}>
-          {t.contact.contact}
-        </div>
+          <button className="nav-btn" onClick={() => handleNavigate("/contact")}>
+            {t.contact.contact}
+          </button>
 
+          {user ? (
+            <>
+              <span className="nav-btn user-label">👤 {user.name}</span>
 
-      {/*Registrierung bzw Anmeldung*/}
-      {user ? (
-        <>
-          <span>👤 {user.name}</span>
+              {user?.role === "admin" && (
+                <button className="nav-btn" onClick={() => handleNavigate("/admin")}>
+                  Admin
+                </button>
+              )}
 
-          {user?.role === "admin" && (
-            <button onClick={() => handleNavigate("/admin")}>
-              Admin
-            </button>
+              <button
+                className="nav-btn"
+                onClick={() => {
+                  logout();
+                  setMenuOpen(false);
+                }}
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <button className="nav-btn" onClick={() => handleNavigate("/login")}>
+                {t.loginButton}
+              </button>
+
+              <button className="nav-btn" onClick={() => handleNavigate("/register")}>
+                {t.registerButton}
+              </button>
+            </>
           )}
 
-          <button onClick={logout}>Logout</button>
-        </>
-      ) : (
-        <>
-          <button onClick={() => handleNavigate("/login")}>
-            {t.loginButton}
+          <button className="nav-btn" onClick={() => handleNavigate("/cart")}>
+            🛒 ({cartCount})
           </button>
-          <button onClick={() => handleNavigate("/register")}>
-            {t.registerButton}
+
+          <div className="flags">
+            {["en", "es", "de"].map((lang) => (
+              <img
+                key={lang}
+                src={process.env.PUBLIC_URL + `/flags/${lang}.png`}
+                alt={lang}
+                onClick={() => handleChangeLang(lang)}
+              />
+            ))}
+          </div>
+
+          <button className="nav-btn" onClick={() => setDark(!dark)}>
+            {dark ? "☀️" : "🌙"}
           </button>
-        </>
-      )}
-
-
-
-        <div className="nav-item" onClick={() => handleNavigate("/cart")}>
-          🛒 ({cartCount})
-        </div>
-
-        <div className="flags">
-          {["en", "es", "de"].map((lang) => (
-            <img
-              key={lang}
-              src={process.env.PUBLIC_URL + `/flags/${lang}.png`}
-              alt={lang}
-              onClick={() => handleChangeLang(lang)}
-            />
-          ))}
-        </div>
-
-
-        <button className="theme-btn" onClick={() => setDark(!dark)}>
-          {dark ? "☀️" : "🌙"}
-        </button>
 
       </div>
     </nav>
