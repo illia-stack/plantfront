@@ -19,13 +19,24 @@ function Register() {
 
   const handleRegister = async () => {
     if (loading) return;
-
     setLoading(true);
 
     try {
+      // 1️⃣ CSRF Token holen
+      const csrfRes = await fetch(`${API_BASE_URL}/csrf.php`, {
+        credentials: "include",
+      });
+
+      const { csrfToken } = await csrfRes.json();
+
+      // 2️⃣ Register Request
       const res = await fetch(`${API_BASE_URL}/register.php`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": csrfToken,
+        },
         body: JSON.stringify({ name, email, password }),
       });
 
