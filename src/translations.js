@@ -1,5 +1,7 @@
 export const translations = {
   en: {
+    loading: "Loading...",
+
     loginTitle: "Login",
     loginEmail: "Email",
     loginPassword: "Password",
@@ -79,6 +81,8 @@ export const translations = {
   },
 
   de: {
+    loading: "Lädt...",
+
     loginTitle: "Anmelden",
     loginEmail: "E-Mail",
     loginPassword: "Passwort",
@@ -158,6 +162,8 @@ export const translations = {
   },
 
   es: {
+    loading: "Cargando...",
+
     loginTitle: "Iniciar sesión",
     loginEmail: "Correo electrónico",
     loginPassword: "Contraseña",

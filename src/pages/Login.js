@@ -7,7 +7,7 @@ import { translations } from "../translations";
 
 function Login() {
   
-  const { login } = useContext(AuthContext);
+  const { login, authFetch, csrfToken } = useContext(AuthContext);
   const { language } = useContext(LanguageContext);
   const t = translations[language];
 
@@ -19,48 +19,34 @@ function Login() {
 
   const handleLogin = async () => {
     if (loading) return;
+
+    if (!csrfToken) {
+      alert("App still initializing. Please try again.");
+      return;
+    }
+
     setLoading(true);
 
     try {
-      // 1️⃣ Get CSRF token
-      const csrfRes = await fetch(`${API_BASE_URL}/csrf.php`, {
-        credentials: "include",
-      });
-
-      const { csrfToken } = await csrfRes.json();
-
-      // 2️⃣ Login request
-      const res = await fetch(`${API_BASE_URL}/login.php`, {
+      // ✅ Use centralized fetch
+      const res = await authFetch(`${API_BASE_URL}/login.php`, {
         method: "POST",
-        credentials: "include", // 🔥 REQUIRED
-        headers: {
-          "Content-Type": "application/json",
-          "X-CSRF-Token": csrfToken,
-        },
         body: JSON.stringify({ email, password }),
       });
 
-      const text = await res.text();
-
-      let data;
-      try {
-        data = text ? JSON.parse(text) : null;
-      } catch {
+      const data = await res.json().catch(() => {
         throw new Error("Invalid server response");
-      }
+      });
 
       if (!res.ok || !data?.success) {
         throw new Error(data?.message || "Login failed");
       }
 
-      const meRes = await fetch(`${API_BASE_URL}/me.php`, {
-        credentials: "include",
-      });
+      // ✅ Let AuthContext sync user
+      await login();
 
-      const meData = await meRes.json();
-
-      login(meData.user);
       alert(t.loginSuccess || "Logged in!");
+      navigate("/");
 
     } catch (err) {
       console.error(err);
@@ -100,7 +86,7 @@ function Login() {
             required
           />
 
-          <button className="auth-btn" type="submit" disabled={loading}>
+          <button className="auth-btn" type="submit" disabled={loading || !csrfToken}>
             {loading ? "..." : t.loginButton}
           </button>
 

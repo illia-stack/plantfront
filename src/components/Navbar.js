@@ -10,7 +10,7 @@ import { translations } from "../translations";
 function Navbar() {
   const [loggingOut, setLoggingOut] = useState(false);
   const { language, changeLanguage } = useContext(LanguageContext);
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout, loading } = useContext(AuthContext);
   const { cart } = useContext(CartContext);
   const { dark, setDark } = useContext(ThemeContext);
 
@@ -18,7 +18,7 @@ function Navbar() {
   const navigate = useNavigate();
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const cartCount = (cart || []).reduce((sum, item) => sum + item.quantity, 0);
 
   const handleNavigate = (path) => {
     setMenuOpen(false);
@@ -47,7 +47,7 @@ function Navbar() {
     {/* RIGHT MENU */}
     <div className="nav-right-wrapper">
       {/* HAMBURGER */}
-      <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+      <div className="hamburger" onClick={() => setMenuOpen(prev => !prev)}>
         ☰
       </div>
 
@@ -61,9 +61,13 @@ function Navbar() {
             {t.contact.contact}
           </button>
 
-          {user ? (
+          {loading ? (
+            <span className="nav-btn" style={{ opacity: 0.6 }}>
+              {t.loading || "..."}
+            </span>
+          ) : user ? (
             <>
-              <span className="nav-btn user-label">👤 {user.name}</span>
+              <span className="nav-btn user-label">👤 {user?.name || "User"}</span>
 
               {user?.role === "admin" && (
                 <button className="nav-btn" onClick={() => handleNavigate("/admin")}>
@@ -73,13 +77,15 @@ function Navbar() {
 
               <button
                 className="nav-btn"
-                disabled={loggingOut}
+                disabled={loggingOut || loading}
                 onClick={async () => {
                   setLoggingOut(true);
                   try {
                     await logout();
-                    setMenuOpen(false);
-                    navigate("/");
+                    handleNavigate("/");
+                  } catch (err) {
+                    console.error("Logout failed", err);
+                    alert("Logout failed. Please try again.");
                   } finally {
                     setLoggingOut(false);
                   }
@@ -115,7 +121,7 @@ function Navbar() {
             ))}
           </div>
 
-          <button className="nav-btn" onClick={() => setDark(!dark)}>
+          <button className="nav-btn" onClick={() => setDark(prev => !prev)}>
             {dark ? "☀️" : "🌙"}
           </button>
 

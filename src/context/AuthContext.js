@@ -5,46 +5,92 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // 🔥 important
+  const [loading, setLoading] = useState(true);
+  const [csrfToken, setCsrfToken] = useState(null);
 
-  // 🔄 Sync with backend session on app load
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const res = await fetch(`${API_BASE_URL}/me.php`, {
-          credentials: "include",
-        });
+  // ✅ Centralized fetch helper
+  const authFetch = async (url, options = {}) => {
+    const isJson = options.body &&
+    typeof options.body === "string" &&
+    !(options.headers && options.headers["Content-Type"]);
 
-        const data = await res.json();
+    const res = await fetch(url, {
+      ...options,
+      credentials: "include",
+      headers: {
+        ...(isJson ? { "Content-Type": "application/json" } : {}),
+        ...(options.headers || {}),
+        ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {}),
+      },
+    });
 
-        setUser(data.user || null);
+    if (res.status === 401) {
+      setUser(null);
+    }
 
-        // optional cache
-        if (data.user) {
-          localStorage.setItem("user", JSON.stringify(data.user));
-        } else {
-          localStorage.removeItem("user");
-        }
-
-      } catch (err) {
-        console.error("Auth check failed:", err);
-        setUser(null);
-        localStorage.removeItem("user");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUser();
-  }, []);
-
-  // ✅ Login (after successful API login)
-  const login = (userData) => {
-    setUser(userData);
-    localStorage.setItem("user", JSON.stringify(userData));
+    return res;
   };
 
-  // ✅ Logout (destroys backend session)
+  // ✅ Initialize session + user
+  const initializeAuth = async () => {
+    try {
+      // 1. Get CSRF token
+      const csrfRes = await fetch(`${API_BASE_URL}/csrf.php`, {
+        credentials: "include",
+      });
+
+      if (!csrfRes.ok) throw new Error("CSRF init failed");
+
+      const csrfData = await csrfRes.json();
+      setCsrfToken(csrfData.csrfToken);
+
+      // 2. Get user
+      const meRes = await fetch(`${API_BASE_URL}/me.php`, {
+        credentials: "include",
+      });
+
+      if (!meRes.ok) throw new Error("Failed to fetch user");
+
+      const meData = await meRes.json();
+      setUser(meData.user || null);
+
+    } catch (err) {
+      console.error("Auth init failed:", err);
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    initializeAuth();
+  }, []);
+
+  // ✅ Login → ALWAYS re-sync from backend
+  const login = async () => {
+    try {
+      // refresh CSRF
+      const csrfRes = await fetch(`${API_BASE_URL}/csrf.php`, {
+        credentials: "include",
+      });
+      const csrfData = await csrfRes.json();
+      setCsrfToken(csrfData.csrfToken);
+
+      // get user from backend (source of truth)
+      const meRes = await fetch(`${API_BASE_URL}/me.php`, {
+        credentials: "include",
+      });
+      const meData = await meRes.json();
+
+      setUser(meData.user || null);
+
+    } catch (err) {
+      console.error("Login sync failed:", err);
+      setUser(null);
+    }
+  };
+
+  // ✅ Logout
   const logout = async () => {
     try {
       await fetch(`${API_BASE_URL}/logout.php`, {
@@ -56,23 +102,30 @@ export const AuthProvider = ({ children }) => {
     }
 
     setUser(null);
-    localStorage.removeItem("user");
+
+    // refresh CSRF after logout
+    try {
+      const csrfRes = await fetch(`${API_BASE_URL}/csrf.php`, {
+        credentials: "include",
+      });
+      const csrfData = await csrfRes.json();
+      setCsrfToken(csrfData.csrfToken);
+    } catch (err) {
+      console.warn("CSRF refresh after logout failed");
+    }
   };
 
-  // 🔄 Sync logout across tabs
-  useEffect(() => {
-    const syncLogout = (event) => {
-      if (event.key === "user" && !event.newValue) {
-        setUser(null);
-      }
-    };
-
-    window.addEventListener("storage", syncLogout);
-    return () => window.removeEventListener("storage", syncLogout);
-  }, []);
-
   return (
-    <AuthContext.Provider value={{ user, login, logout, loading }}>
+    <AuthContext.Provider
+      value={{
+        user,
+        loading,
+        csrfToken,
+        login,
+        logout,
+        authFetch,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
