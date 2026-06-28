@@ -114,7 +114,7 @@ function Register() {
           {language === "de" ? "Schon ein Konto?" : "Already have an account?"}{" "}
           <span
             className="auth-link"
-            onClick={() => window.location.href = "/login"}
+            onClick={() => navigate("/login")}
           >
             {t.loginButton}
           </span>

@@ -1,10 +1,12 @@
 import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../config";
 import { AuthContext } from "../context/AuthContext";
 import { LanguageContext } from "../context/LanguageContext";
 import { translations } from "../translations";
 
 function Login() {
+  
   const { login } = useContext(AuthContext);
   const { language } = useContext(LanguageContext);
   const t = translations[language];
@@ -13,16 +15,29 @@ function Login() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleLogin = async () => {
     if (loading) return;
-
     setLoading(true);
 
     try {
+      // 1️⃣ Get CSRF token
+      const csrfRes = await fetch(`${API_BASE_URL}/csrf.php`, {
+        credentials: "include",
+      });
+
+      const { csrfToken } = await csrfRes.json();
+
+      // 2️⃣ Login request
       const res = await fetch(`${API_BASE_URL}/login.php`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
+        credentials: "include", // 🔥 REQUIRED
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRF-Token": csrfToken,
+        },
+        body: JSON.stringify({ email, password }),
       });
 
       const text = await res.text();
@@ -38,7 +53,13 @@ function Login() {
         throw new Error(data?.message || "Login failed");
       }
 
-      login(data.user);
+      const meRes = await fetch(`${API_BASE_URL}/me.php`, {
+        credentials: "include",
+      });
+
+      const meData = await meRes.json();
+
+      login(meData.user);
       alert(t.loginSuccess || "Logged in!");
 
     } catch (err) {
@@ -89,7 +110,7 @@ function Login() {
           {language === "de" ? "Noch kein Konto?" : "No account?"}{" "}
           <span
             className="auth-link"
-            onClick={() => window.location.href = "/register"}
+            onClick={() => navigate("/register")}
           >
             {t.registerButton}
           </span>

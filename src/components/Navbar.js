@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { LanguageContext } from "../context/LanguageContext";
 import { AuthContext } from "../context/AuthContext";
 import { CartContext } from "../context/CartContext";
@@ -8,6 +8,7 @@ import { translations } from "../translations";
 
 
 function Navbar() {
+  const [loggingOut, setLoggingOut] = useState(false);
   const { language, changeLanguage } = useContext(LanguageContext);
   const { user, logout } = useContext(AuthContext);
   const { cart } = useContext(CartContext);
@@ -72,12 +73,19 @@ function Navbar() {
 
               <button
                 className="nav-btn"
-                onClick={() => {
-                  logout();
-                  setMenuOpen(false);
+                disabled={loggingOut}
+                onClick={async () => {
+                  setLoggingOut(true);
+                  try {
+                    await logout();
+                    setMenuOpen(false);
+                    navigate("/");
+                  } finally {
+                    setLoggingOut(false);
+                  }
                 }}
               >
-                Logout
+                {loggingOut ? "..." : "Logout"}
               </button>
             </>
           ) : (
