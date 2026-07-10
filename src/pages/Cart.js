@@ -1,17 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { LanguageContext } from "../context/LanguageContext";
 import { AuthContext } from "../context/AuthContext";
 import { CartContext } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
-import { translations } from "../translations";
-
 import { API_BASE_URL } from "../config";
 
 function Cart() {
-  const { language } = useContext(LanguageContext);
+  
   const { user } = useContext(AuthContext);
-  const t = translations[language];
-
   const navigate = useNavigate();
 
 
@@ -39,10 +34,10 @@ function Cart() {
 
   useEffect(() => {
 
-    fetch(`${API_BASE_URL}/get-products.php?lang=${language}`)
+    fetch(`${API_BASE_URL}/get-products.php`)
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Netzwerkantwort war nicht ok");
+          throw new Error("Network error");
         }
         return response.json();
       })
@@ -52,7 +47,7 @@ function Cart() {
       .catch((error) => {
         console.error("Fetch error:", error);
       });
-  }, [language]);
+  }, []);
 
 
 
@@ -94,7 +89,7 @@ function Cart() {
                     className="remove-btn"
                     onClick={() => removeFromCart(item.id)}
                   >
-                    {t.remove}
+                    Remove
                   </button>
                 </div>
               </div>
@@ -103,18 +98,18 @@ function Cart() {
 
           <div className="cart-total">
             <h2>
-              {t.total}: {Number(finalTotal).toFixed(2)} €
+              Total price: {Number(finalTotal).toFixed(2)} €
             </h2>
 
             {user && (
               <p style={{ color: "green" }}>
-                ✅ {t.discountApplied}
+                ✅ 5% discount applied
               </p>
             )}
            
 
             <button className="primary-btn" onClick={handleCheckout}>
-              {t.checkout}
+              Proceed to Payment
             </button>
           </div>
           

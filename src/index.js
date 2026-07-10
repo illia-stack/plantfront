@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import ErrorBoundary from "./components/ErrorBoundary";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
-import { LanguageProvider } from "./context/LanguageContext";
 import { AuthProvider } from "./context/AuthContext";
 import { CartProvider } from "./context/CartContext";
 import "./styles/base.css";
@@ -10,11 +10,22 @@ import "./styles/layout.css";
 import "./styles/components.css";
 import { ThemeProvider } from "./context/ThemeContext";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+
+const container = document.getElementById("root");
+
+if(!container) {
+
+  throw new Error("Root element not found");
+
+}
+
+const root = ReactDOM.createRoot(container);
+
+
 
 root.render(
-  <ThemeProvider>
-    <LanguageProvider>
+  <ErrorBoundary>
+    <ThemeProvider>
       <AuthProvider>
         <CartProvider>
           <BrowserRouter>
@@ -22,6 +33,6 @@ root.render(
           </BrowserRouter>
         </CartProvider>
       </AuthProvider>
-    </LanguageProvider>
-  </ThemeProvider>
+    </ThemeProvider>
+  </ErrorBoundary>
 );

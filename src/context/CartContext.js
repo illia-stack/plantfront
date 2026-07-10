@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import { createContext, useState, useEffect } from "react";
 
 
 export const CartContext = createContext();
@@ -9,12 +9,20 @@ export const CartProvider = ({ children }) => {
 
   const [cart, setCart] = useState(() => {
     const saved = localStorage.getItem("cart");
-    return saved ? JSON.parse(saved) : [];
+
+    try{
+      return saved ? JSON.parse(saved) : [];
+    } catch { return []; }
+    
   });
 
   // Save cart to localStorage
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
+    try {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    } catch (err) {
+      console.error("Failed to save cart", err);
+    }
   }, [cart]);
 
   // ---------------------------

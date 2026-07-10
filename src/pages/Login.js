@@ -2,15 +2,11 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../config";
 import { AuthContext } from "../context/AuthContext";
-import { LanguageContext } from "../context/LanguageContext";
-import { translations } from "../translations";
+
 
 function Login() {
   
-  const { login, authFetch, csrfToken } = useContext(AuthContext);
-  const { language } = useContext(LanguageContext);
-  const t = translations[language];
-
+  const { login, authFetch, loading: authLoading } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -20,11 +16,6 @@ function Login() {
   const handleLogin = async () => {
     if (loading) return;
 
-    if (!csrfToken) {
-      alert("App still initializing. Please try again.");
-      return;
-    }
-
     setLoading(true);
 
     try {
@@ -33,6 +24,13 @@ function Login() {
         method: "POST",
         body: JSON.stringify({ email, password }),
       });
+
+      const contentType = res.headers.get("content-type");
+
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Unexpected server response");
+      }
+
 
       const data = await res.json().catch(() => {
         throw new Error("Invalid server response");
@@ -45,22 +43,32 @@ function Login() {
       // ✅ Let AuthContext sync user
       await login();
 
-      alert(t.loginSuccess || "Logged in!");
-      navigate("/");
+      alert("Logged in!");
+      navigate("/", { replace: true });
 
     } catch (err) {
-      console.error(err);
-      alert(err.message || t.loginFailed || "Login failed");
+
+        if (err.message === "SESSION_EXPIRED") {
+          alert("Session expired. Please try again.");
+          return;
+        }
+
+        if (err.message === "UNAUTHORIZED") {
+          alert("Login failed");
+          return;
+        }
+
+        alert(err.message || "Login failed");
     } finally {
       setLoading(false);
-    }
+      }
   };
 
   return (
     <div className="auth-page">
       <div className="auth-container">
 
-        <h2>{t.loginTitle}</h2>
+        <h2>Login</h2>
 
         <form
           className="auth-form"
@@ -72,7 +80,7 @@ function Login() {
 
           <input
             type="email"
-            placeholder={t.loginEmail}
+            placeholder="Enter your e-mail"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -80,25 +88,25 @@ function Login() {
 
           <input
             type="password"
-            placeholder={t.loginPassword}
+            placeholder="Enter your password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
 
-          <button className="auth-btn" type="submit" disabled={loading || !csrfToken}>
-            {loading ? "..." : t.loginButton}
+          <button className="auth-btn" type="submit" disabled={loading}>
+            {loading ? "Loading..." : "Login"}
           </button>
 
         </form>
 
         <div className="auth-switch">
-          {language === "de" ? "Noch kein Konto?" : "No account?"}{" "}
+          {"No account?"}
           <span
             className="auth-link"
             onClick={() => navigate("/register")}
           >
-            {t.registerButton}
+            Register
           </span>
         </div>
 

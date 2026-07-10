@@ -10,9 +10,7 @@ function PlantCard({ plant }) {
   const [showDesc, setShowDesc] = useState(false);
 
   const { addToCart } = useContext(CartContext);
-  const { language } = useContext(LanguageContext);
-  const t = translations[language];
-
+  
   return (
     <div className="card">
 
@@ -40,7 +38,7 @@ function PlantCard({ plant }) {
           className="primary-btn"
           onClick={() => addToCart(plant)}
         >
-          {t.addToCart}
+          Add to cart
         </button>
 
       </div>

@@ -1,11 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { API_BASE_URL } from "../config";
-import { LanguageContext } from "../context/LanguageContext";
-import { translations } from "../translations";
 
 function Comments({ productId }) {
-  const { language } = useContext(LanguageContext);
-  const t = translations[language].comments;
 
   const [comments, setComments] = useState([]);
   const [show, setShow] = useState(false);
@@ -20,7 +16,7 @@ function Comments({ productId }) {
         `${API_BASE_URL}/comments.php?product_id=${productId}`
       );
 
-      if (!res.ok) throw new Error(t.api.httpError);
+      if (!res.ok) throw new Error("HTTP error");
 
       const text = await res.text();
 
@@ -28,12 +24,12 @@ function Comments({ productId }) {
       try {
         data = text ? JSON.parse(text) : [];
       } catch {
-        throw new Error(t.api.invalidJson);
+        throw new Error("Invalid JSON response from server invalid Json");
       }
 
       setComments(data);
     } catch (err) {
-      console.error(t.fetchError.replace("{status}", err.message));
+      console.error("Failed to fetch comments");
     }
   };
 
@@ -44,7 +40,7 @@ function Comments({ productId }) {
   // ➕ Kommentar posten
   const postComment = async () => {
     if (!username || !text) {
-      alert(t.fillFields);
+      alert("Please fill all fields");
       return;
     }
 
@@ -69,18 +65,18 @@ function Comments({ productId }) {
       try {
         data = textRes ? JSON.parse(textRes) : null;
       } catch {
-        throw new Error(t.api.invalidJson);
+        throw new Error("Invalid JSON response from server");
       }
 
       if (!res.ok || !data?.success) {
-        throw new Error(data?.error || t.api.requestFailed);
+        throw new Error(data?.error);
       }
 
       setUsername("");
       setText("");
       fetchComments();
 
-      alert(t.postSuccess);
+      alert("Comment posted successfully!");
     } catch (err) {
       alert(t.postError.replace("{error}", err.message));
     } finally {
@@ -95,24 +91,24 @@ function Comments({ productId }) {
         className="comments-toggle-btn"
         onClick={() => setShow(!show)}
       >
-        {show ? t.commentsButtonHide : t.commentsButtonShow}
+        {show ? "Hide comments" : "Show comments"}
       </button>
 
       {show && (
         <div className="comments-box">
 
-          <h4 className="comments-title">{t.title}</h4>
+          <h4 className="comments-title">Comments</h4>
 
           <div className="comments-list">
             {comments.length === 0 ? (
-              <p className="comments-empty">{t.empty}</p>
+              <p className="comments-empty">No comments yet</p>
             ) : (
               comments.map((c) => (
                 <div key={c.id} className="comment-item">
                   <div className="comment-header">
                     <strong>{c.username}</strong>
                     <small>
-                      {new Date(c.created_at).toLocaleString(language)}
+                      {new Date(c.created_at)}
                     </small>
                   </div>
                   <p>{c.comment}</p>
@@ -123,14 +119,14 @@ function Comments({ productId }) {
 
           <input
             type="text"
-            placeholder={t.name}
+            placeholder="Your name"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             className="comments-input"
           />
 
           <textarea
-            placeholder={t.placeholder}
+            placeholder="Write your message"
             value={text}
             onChange={(e) => setText(e.target.value)}
             className="comments-textarea"
@@ -141,7 +137,7 @@ function Comments({ productId }) {
             disabled={loading}
             className="comments-submit-btn"
           >
-            {loading ? "..." : t.post}
+            Loading ...
           </button>
 
         </div>

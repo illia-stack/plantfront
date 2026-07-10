@@ -1,11 +1,7 @@
 import React, { useState, useContext } from "react";
-import { LanguageContext } from "../context/LanguageContext";
-import { translations } from "../translations";
 import { API_BASE_URL } from "../config";
 
 function Contact() {
-  const { language } = useContext(LanguageContext);
-  const t = translations[language].contact;
 
   const [form, setForm] = useState({
     name: "",
@@ -53,14 +49,14 @@ function Contact() {
 
       <div className="contact-card">
 
-        <h1 className="contact-title">{t.contact}</h1>
+        <h1 className="contact-title">Contact Us</h1>
 
         <form onSubmit={handleSubmit} className="contact-form">
 
           <input
             type="text"
             name="name"
-            placeholder={t.name}
+            placeholder="Enter your name"
             value={form.name}
             onChange={handleChange}
             required
@@ -69,7 +65,7 @@ function Contact() {
           <input
             type="email"
             name="email"
-            placeholder={t.email}
+            placeholder="Enter your email"
             value={form.email}
             onChange={handleChange}
             required
@@ -78,7 +74,7 @@ function Contact() {
           <input
             type="text"
             name="subject"
-            placeholder={t.subject}
+            placeholder="Subject"
             value={form.subject}
             onChange={handleChange}
           />
@@ -86,7 +82,7 @@ function Contact() {
 
           <textarea
             name="message"
-            placeholder={t.message}
+            placeholder="Type your message"
             value={form.message}
             onChange={handleChange}
             rows="5"
@@ -97,17 +93,17 @@ function Contact() {
 
 
           <button type="submit" disabled={loading}>
-            {loading ? "..." : t.send}
+            Loading ...
           </button>
 
         </form>
 
         {status === "success" && (
-          <p className="success-text">{t.sendSuccess}</p>
+          <p className="success-text">Message sent successfully!</p>
         )}
 
         {status === "error" && (
-          <p className="error-text">{t.sendError}</p>
+          <p className="error-text">Failed to send message. Please try again.</p>
         )}
 
       </div>

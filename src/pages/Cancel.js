@@ -6,8 +6,6 @@ import { translations } from "../translations";
 function Cancel() {
 
   const navigate = useNavigate();
-  const { language } = useContext(LanguageContext);
-  const t = translations[language];
 
   return (
 
@@ -16,18 +14,18 @@ function Cancel() {
       <div style={cancelCard}>
 
         <h2 style={titleStyle}>
-          ❌ {t.cancelTitle}
+          ❌ Payment Canceled
         </h2>
 
         <p style={messageStyle}>
-          {t.cancelMessage}
+          Your payment was cancelled. You can try again
         </p>
 
         <button
           style={buttonStyle}
           onClick={() => navigate("/")}
         >
-          {t.cancelBack}
+          Back to Homepage
         </button>
 
       </div>

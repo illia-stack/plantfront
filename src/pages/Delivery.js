@@ -1,7 +1,5 @@
 import React, { useState, useContext } from "react";
 import { API_BASE_URL } from "../config";
-import { translations } from "../translations";
-import { LanguageContext } from "../context/LanguageContext";
 import { AuthContext } from "../context/AuthContext";
 import { CartContext } from "../context/CartContext";
 
@@ -21,9 +19,7 @@ function Delivery() {
 
   
   const { cart } = useContext(CartContext);
-  const { language } = useContext(LanguageContext);
-  const t = translations[language];
-
+  
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -40,34 +36,33 @@ function Delivery() {
       quantity: item.quantity
     }));
 
-      try {
-      const response = await fetch(`${API_BASE_URL}/create-checkout-session.php`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          cart: preparedCart,
-          delivery: form,
-          user: user,
-          language: language
-        })
-      });
+    try {
+        const response = await fetch(`${API_BASE_URL}/create-checkout-session.php`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            cart: preparedCart,
+            delivery: form,
+            user: user,
+          })
+        });
 
-      if (!response.ok) {
-        const text = await response.text();
-        console.error("Server error:", text);
-        alert("Server error");
-        return;
-      }
+        if (!response.ok) {
+          const text = await response.text();
+          console.error("Server error:", text);
+          alert("Server error");
+          return;
+        }
 
-      const data = await response.json();
-      console.log("Stripe response:", data);
+        const data = await response.json();
+        console.log("Stripe response:", data);
 
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        console.error("Stripe session error:", data);
-        alert("Something went wrong. Please try again.");
-      }
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          console.error("Stripe session error:", data);
+          alert("Something went wrong. Please try again.");
+        }
     } catch (err) {
       console.error(err);
       alert("Server error");
@@ -76,13 +71,13 @@ function Delivery() {
 
       return (
         <div className="delivery-container">
-          <h2>{t.deliveryTitle}</h2>
+          <h2>Delivery Details</h2>
 
           <form onSubmit={handleSubmit} className="delivery-form">
 
             <input
               name="name"
-              placeholder={t.name || "Name"}
+              placeholder="Your name"
               value={form.name}
               onChange={handleChange}
               required
@@ -90,7 +85,7 @@ function Delivery() {
 
             <input
               name="address"
-              placeholder={t.address || "Address"}
+              placeholder="Address of delivery"
               value={form.address}
               onChange={handleChange}
               required
@@ -98,7 +93,7 @@ function Delivery() {
 
             <input
               name="city"
-              placeholder={t.city || "City"}
+              placeholder="City of delivery"
               value={form.city}
               onChange={handleChange}
               required
@@ -106,7 +101,7 @@ function Delivery() {
 
             <input
               name="postal"
-              placeholder={t.postal || "Postal code"}
+              placeholder="Postal code"
               value={form.postal}
               onChange={handleChange}
               required
@@ -114,7 +109,7 @@ function Delivery() {
 
             <input
               name="country"
-              placeholder={t.country || "Country"}
+              placeholder="Country of delivery"
               value={form.country}
               onChange={handleChange}
               required
@@ -123,7 +118,7 @@ function Delivery() {
             <input
               name="email"
               type="email"
-              placeholder={t.email || "E-mail"}
+              placeholder="Your e-mail"
               value={form.email}
               onChange={handleChange}
               required
@@ -131,14 +126,14 @@ function Delivery() {
 
             <input
               name="phone"
-              placeholder={t.phone || "Phone"}
+              placeholder="Your Phone"
               value={form.phone}
               onChange={handleChange}
               required
             />
 
             <button type="submit" className="primary-btn">
-              {t.deliverySubmit || "Save Delivery Details"}
+              "Save Delivery Details"
             </button>
 
           </form>

@@ -2,29 +2,20 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../config";
 import { AuthContext } from "../context/AuthContext";
-import { LanguageContext } from "../context/LanguageContext";
-import { translations } from "../translations";
 
 function Register() {
-  const { login, authFetch, csrfToken } = useContext(AuthContext);
-  const { language } = useContext(LanguageContext);
-  const t = translations[language];
-
+  const { login, authFetch, loading: authLoading } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-
+  
   const navigate = useNavigate();
 
   const handleRegister = async () => {
    if (loading) return;
 
-    if (!csrfToken) {
-      alert("App still initializing. Please try again.");
-      return;
-    }
-
+    
     setLoading(true);
 
     try {
@@ -34,6 +25,12 @@ function Register() {
         body: JSON.stringify({ name, email, password }),
       });
 
+      const contentType = res.headers.get("content-type");
+
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Unexpected server response");
+      }
+
       const data = await res.json().catch(() => {
         throw new Error("Invalid server response");
       });
@@ -42,26 +39,38 @@ function Register() {
         throw new Error(data?.message || "Registration failed");
       }
 
-      alert(t.registerSuccess || "Registration successful!");
+      alert("Registration successful!");
 
       // ✅ Let AuthContext re-sync from backend
       await login();
 
-      navigate("/");
+      navigate("/", { replace: true });
 
     } catch (err) {
-      console.error(err);
-      alert(err.message || t.registerFailed || "Registration failed!");
+
+        if (err.message === "SESSION_EXPIRED") {
+          alert("Session expired. Please refresh the page.");
+          window.location.reload();
+          return;
+        }
+
+        if (err.message === "UNAUTHORIZED") {
+          alert("Registration failed");
+          return;
+        }
+
+        // ✅ Fallback (fehlte!)
+        alert("Registration failed");
     } finally {
-      setLoading(false);
-    }
+          setLoading(false);
+      }
   };
 
   return (
     <div className="auth-page">
       <div className="auth-container">
 
-        <h2>{t.registerTitle}</h2>
+        <h2>Register</h2>
 
         <form
           className="auth-form"
@@ -73,7 +82,7 @@ function Register() {
 
           <input
             type="text"
-            placeholder={t.registerName}
+            placeholder="Enter your name"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
@@ -81,7 +90,7 @@ function Register() {
 
           <input
             type="email"
-            placeholder={t.registerEmail}
+            placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
@@ -89,25 +98,25 @@ function Register() {
 
           <input
             type="password"
-            placeholder={t.registerPassword}
+            placeholder="Create a password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
 
-          <button className="auth-btn" type="submit"  disabled={loading || !csrfToken}>
-            {loading ? "..." : t.registerButton}
+          <button className="auth-btn" type="submit"  disabled={loading}>
+            {loading ? "Loading..." : "Register"}
           </button>
 
         </form>
 
         <div className="auth-switch">
-          {language === "de" ? "Schon ein Konto?" : "Already have an account?"}{" "}
+          {"Already have an account?"}
           <span
             className="auth-link"
             onClick={() => navigate("/login")}
           >
-            {t.loginButton}
+            {"Login"}
           </span>
         </div>
 

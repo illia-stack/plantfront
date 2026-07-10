@@ -1,132 +1,179 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useRef } from "react";
 import { API_BASE_URL } from "../config";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [csrfToken, setCsrfToken] = useState(null);
+const [user, setUser] = useState(null);
+const [loading, setLoading] = useState(true);
+const [csrfToken, setCsrfToken] = useState(null);
 
-  // ✅ Centralized fetch helper
-  const authFetch = async (url, options = {}) => {
-    const isJson = options.body &&
-    typeof options.body === "string" &&
-    !(options.headers && options.headers["Content-Type"]);
+// 🔹 CSRF IMMER ohne authFetch holen
+const csrfPromiseRef = useRef(null);
 
-    const res = await fetch(url, {
-      ...options,
+const fetchCsrfToken = async () => {
+  if (csrfPromiseRef.current) return csrfPromiseRef.current;
+
+  csrfPromiseRef.current = (async () => {
+    const res = await fetch(`${API_BASE_URL}/csrf.php`, {
       credentials: "include",
-      headers: {
-        ...(isJson ? { "Content-Type": "application/json" } : {}),
-        ...(options.headers || {}),
-        ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {}),
-      },
     });
 
-    if (res.status === 401) {
-      setUser(null);
+    if (!res.ok) {
+      throw new Error("Failed to fetch CSRF token");
+    }
+    
+    const data = await res.json();
+
+    if (!data?.csrfToken) {
+      throw new Error("Missing CSRF token");
     }
 
-    return res;
+    setCsrfToken(data.csrfToken);
+    csrfPromiseRef.current = null;
+
+    return data.csrfToken;
+  })();
+
+  return csrfPromiseRef.current;
+};
+
+// 🔹 Centralized fetch helper
+const authFetch = async (url, options = {}, retry = true) => {
+  let token = csrfToken;
+
+  if (!token) {
+    token = await fetchCsrfToken();
+  }
+
+  const headers = {
+    ...(options.headers || {}),
+    "X-CSRF-Token": token, // 🔥 DAS FEHLT
   };
 
-  // ✅ Initialize session + user
-  const initializeAuth = async () => {
-    try {
-      // 1. Get CSRF token
-      const csrfRes = await fetch(`${API_BASE_URL}/csrf.php`, {
-        credentials: "include",
-      });
+  if (options.body && !(options.body instanceof FormData)) {
+    headers["Content-Type"] = "application/json";
+  }
 
-      if (!csrfRes.ok) throw new Error("CSRF init failed");
+  const res = await fetch(url, {
+    ...options,
+    credentials: "include",
+    headers,
+  });
 
-      const csrfData = await csrfRes.json();
-      setCsrfToken(csrfData.csrfToken);
+  // 🔁 1. Retry bei CSRF
+  if (res.status === 403 && retry) {
+    await fetchCsrfToken();
+    return authFetch(url, options, false);
+  }
 
-      // 2. Get user
-      const meRes = await fetch(`${API_BASE_URL}/me.php`, {
-        credentials: "include",
-      });
+  // ❗ 2. NACH Retry → Session vermutlich weg
+  if (res.status === 403 && !retry) {
+    setUser(null);
 
-      if (!meRes.ok) throw new Error("Failed to fetch user");
+    throw new Error("SESSION_EXPIRED");
+  }
 
-      const meData = await meRes.json();
-      setUser(meData.user || null);
+  // 🔐 3. Nicht eingeloggt
+  if (res.status === 401) {
+    setUser(null);
+    throw new Error("UNAUTHORIZED");
+  }
 
-    } catch (err) {
-      console.error("Auth init failed:", err);
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  };
+  return res;
+};
 
-  useEffect(() => {
-    initializeAuth();
-  }, []);
+// 🔹 Initialize session + user
+const initializeAuth = async () => {
+  try {
+        
+    // User holen
+    const meRes = await authFetch(`${API_BASE_URL}/me.php`);
 
-  // ✅ Login → ALWAYS re-sync from backend
-  const login = async () => {
-    try {
-      // refresh CSRF
-      const csrfRes = await fetch(`${API_BASE_URL}/csrf.php`, {
-        credentials: "include",
-      });
-      const csrfData = await csrfRes.json();
-      setCsrfToken(csrfData.csrfToken);
+    if (!meRes.ok) throw new Error("Failed to fetch user");
 
-      // get user from backend (source of truth)
-      const meRes = await fetch(`${API_BASE_URL}/me.php`, {
-        credentials: "include",
-      });
-      const meData = await meRes.json();
+    const meData = await meRes.json();
+    setUser(meData.user || null);
 
-      setUser(meData.user || null);
+  } catch (err) {
+    console.error("Auth init failed:", err);
+    setUser(null);
+  } finally {
+    setLoading(false);
+  }
 
-    } catch (err) {
-      console.error("Login sync failed:", err);
-      setUser(null);
-    }
-  };
+};
 
-  // ✅ Logout
-  const logout = async () => {
-    try {
-      await fetch(`${API_BASE_URL}/logout.php`, {
-        method: "POST",
-        credentials: "include",
-      });
-    } catch (err) {
-      console.warn("Logout request failed");
-    }
+useEffect(() => {
+  initializeAuth();
+}, []);
+
+// 🔹 Login → sync + neuer CSRF
+const login = async () => {
+  try {
+    csrfPromiseRef.current = null; // 🔥 wichtig
+    await fetchCsrfToken();
+
+    const meRes = await authFetch(`${API_BASE_URL}/me.php`);
+    const meData = await meRes.json();
+
+    setUser(meData.user || null);
+  } catch (err) {
+    console.error("Login sync failed:", err);
+    setUser(null);
+  }
+};
+
+// 🔹 Logout
+const logout = async () => {
+  try {
+    const res = await authFetch(`${API_BASE_URL}/logout.php`, {
+      method: "POST",
+    });
+
+    const data = await res.json();
 
     setUser(null);
 
-    // refresh CSRF after logout
-    try {
-      const csrfRes = await fetch(`${API_BASE_URL}/csrf.php`, {
-        credentials: "include",
-      });
-      const csrfData = await csrfRes.json();
-      setCsrfToken(csrfData.csrfToken);
-    } catch (err) {
-      console.warn("CSRF refresh after logout failed");
+    if (data?.csrfToken) {
+      setCsrfToken(data.csrfToken);
+      
+    } else {
+      await fetchCsrfToken(); // fallback
     }
-  };
 
-  return (
-    <AuthContext.Provider
-      value={{
-        user,
-        loading,
-        csrfToken,
-        login,
-        logout,
-        authFetch,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  
+
+  } catch (err) {
+    console.warn("Logout request failed");
+
+    // trotzdem lokal ausloggen
+    setUser(null);
+
+    try {
+      csrfPromiseRef.current = null;
+      await fetchCsrfToken(); // fallback
+    } catch (e) {
+      console.warn("CSRF fallback failed");
+    }
+  } finally {
+  csrfPromiseRef.current = null;
+  }
+
+};
+
+return (
+  <AuthContext.Provider
+    value={{
+      user,
+      loading,
+      csrfToken,
+      login,
+      logout,
+      authFetch,
+    }}
+  >
+  {children}
+  </AuthContext.Provider>
+);
 };
