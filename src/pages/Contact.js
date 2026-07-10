@@ -32,7 +32,12 @@ function Contact() {
         body: JSON.stringify(form),
       });
 
-      const data = await res.json();
+      let data;
+      try {
+        data = await res.json();
+      } catch {
+        throw new Error("Invalid JSON response");
+      }
 
       if (data.success) {
         setStatus("success");
