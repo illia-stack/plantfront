@@ -78,7 +78,7 @@ function Comments({ productId }) {
 
       alert("Comment posted successfully!");
     } catch (err) {
-      alert(t.postError.replace("{error}", err.message));
+      alert("Failed to post comment", err.message);
     } finally {
       setLoading(false);
     }
