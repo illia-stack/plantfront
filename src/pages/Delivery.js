@@ -39,6 +39,7 @@ function Delivery() {
     try {
         const response = await fetch(`${API_BASE_URL}/create-checkout-session.php`, {
           method: "POST",
+          credentials: "include",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             cart: preparedCart,
