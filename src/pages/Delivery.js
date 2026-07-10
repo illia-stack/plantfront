@@ -5,8 +5,7 @@ import { CartContext } from "../context/CartContext";
 
 function Delivery() {
 
-  const { user } = useContext(AuthContext);
-  
+  const { user, authFetch } = useContext(AuthContext);  
 
   const [form, setForm] = useState({
     name: "",
@@ -37,7 +36,7 @@ function Delivery() {
       quantity: item.quantity
     }));
 
-    const { authFetch } = useContext(AuthContext);
+    
     try {
         const response = await authFetch(`${API_BASE_URL}/create-checkout-session.php`, {
           method: "POST",
