@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { AuthContext } = useContext(AuthContext);
+import { AuthContext } from "../context/AuthContext";
 import { API_BASE_URL } from "../config";
 
 function Contact() {
