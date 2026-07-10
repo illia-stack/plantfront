@@ -95,7 +95,7 @@ function Contact() {
 
 
           <button type="submit" disabled={loading}>
-            Loading ...
+            Send
           </button>
 
         </form>
