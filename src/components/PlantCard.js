@@ -1,7 +1,5 @@
 import React, { useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
-import { LanguageContext } from "../context/LanguageContext";
-import { translations } from "../translations";
 import Comments from "./Comments";
 
 
