@@ -13,7 +13,6 @@ function Contact() {
 
   const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { authFetch } = useContext(AuthContext);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -25,9 +24,11 @@ function Contact() {
     setStatus(null);
 
     try {
-      const res = await authFetch(`${API_BASE_URL}/send-contact.php`, {
+      const res = await fetch(`${API_BASE_URL}/send-contact.php`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(form),
       });
 
