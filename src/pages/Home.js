@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { API_BASE_URL } from "../config";
 import { CartContext } from "../context/CartContext.js";
+import { PlantCard } from "../components/PlantCard.js"
 
 function Home () {
   

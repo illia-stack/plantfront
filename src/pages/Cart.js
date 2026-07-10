@@ -56,11 +56,11 @@ function Cart() {
 
   return (
     <div className="cart-container">
-      <h1>{t.cart}</h1>
+      <h1>Your Cart</h1>
 
       {cart.length === 0 ? (
         <div className="cart-empty">
-          <h2>{t.cartEmpty}</h2>
+          <h2>Cart is empty</h2>
         </div>
       ) : (
         <>
