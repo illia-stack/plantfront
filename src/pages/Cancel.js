@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { LanguageContext } from "../context/LanguageContext";
-import { translations } from "../translations";
+
 
 function Cancel() {
 
