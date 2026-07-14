@@ -8,8 +8,7 @@ function Navbar() {
   const [loggingOut, setLoggingOut] = useState(false);
   const { user, logout, loading } = useContext(AuthContext);
   const { cart } = useContext(CartContext);
-  const { dark, setDark } = useContext(ThemeContext);
-
+  
   const navigate = useNavigate();
 
   const [menuOpen, setMenuOpen] = useState(false);
