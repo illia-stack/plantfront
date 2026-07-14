@@ -10,13 +10,23 @@ function Success() {
   }, []);
 
   return (
-    <div style={{ padding: "40px", textAlign: "center" }}>
-      <h2>Payment Successful 🎉</h2>
-      <p>Thank you for your order!</p>
+    
+    <div className="cancel-page-wrapper">
+      <div className="cancel-card">
 
-      <button onClick={() => navigate("/")}>
-        Back to Shop
-      </button>
+        <h1 style={{ color: "green" }}> Payment Successful! 🎉 </h1>
+
+        <p className="message-style">
+          Thank you for your order!
+        </p>
+
+        <button 
+          className="button-style"
+          onClick={() => navigate("/")}>
+          Back to Shop
+        </button>
+
+      </div>
     </div>
   );
 }

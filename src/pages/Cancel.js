@@ -12,9 +12,9 @@ function Cancel() {
 
       <div className="cancel-card">
 
-        <h2 className="title-style">
+        <h1 className="title-style">
           ❌ Payment Canceled
-        </h2>
+        </h1>
 
         <p className="message-style">
           Your payment was cancelled. You can try again

@@ -1,19 +1,30 @@
-🌿 Indoor Gardening Shop
+Indoor Gardening Shop
 
 A full-stack e-commerce web application for indoor plants, built with React, PHP, and Stripe.
 
-🚀 Features
-🛒 Shopping cart with persistent storage (localStorage)
-🔐 User authentication (login & registration)
-💳 Secure checkout with Stripe
-💬 Product comments system
-📦 Order processing via Stripe webhooks
-🛡️ Security features:
+
+
+#_Features
+
+1.Shopping cart with persistent storage (localStorage)
+2. User authentication (login & registration)
+3. Secure checkout with Stripe
+4. Product comments system
+5. Order processing via Stripe webhooks
+
+
+
+#_Security features
+
 CSRF protection
 Rate limiting
 Secure sessions (SameSite, HttpOnly, Secure cookies)
 Content Security Policy (CSP via Helmet)
-🏗️ Tech Stack
+
+
+
+#_Tech Stack
+
 Frontend
 React
 React Router
@@ -26,15 +37,22 @@ Dotenv (environment management)
 Deployment
 Frontend: Render
 Backend: Render (Docker, Apache + PHP)
-📂 Project Structure
+
+
+
+#_Project Structure
 /frontend (React app)
 /api       (PHP endpoints)
 /includes  (config, security, database)
 /Dockerfile
-⚙️ Installation (Local Development)
+
+
+#_Installation (Local Development)
 1. Clone repository
 git clone https://github.com/your-username/indoor-gardening.git
 cd indoor-gardening
+
+
 2. Frontend setup
 cd frontend
 npm install
@@ -43,12 +61,16 @@ npm start
 App runs at:
 http://localhost:3000
 
+
 3. Backend setup
 Install PHP 8.2+
 Install Composer
 composer install
 
-Create a .env file:
+
+
+
+#_Create a .env file:
 
 DB_HOST=your_db_host
 DB_NAME=your_db_name
@@ -60,10 +82,16 @@ RESEND_API_KEY=your_email_key
 
 Run backend via Apache / XAMPP / Docker.
 
-🌍 Production
+
+
+#_Production
+
 Frontend: https://plantfront.onrender.com
 Backend API: https://plantback.onrender.com
-🔐 Security Notes
+
+
+
+#_Security Notes
 
 This project includes:
 
@@ -79,11 +107,17 @@ POST /api/register.php
 POST /api/create-checkout-session.php
 GET /api/comments.php
 POST /api/comments.php
-🧪 Future Improvements
+
+
+
+#_Future Improvements
+
 CAPTCHA for spam protection
 Admin dashboard
 Order history for users
 Email notifications
-📄 License
+
+
+#_License
 
 This project is for educational and portfolio purposes.
