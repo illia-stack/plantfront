@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
-import "./FloatingCart.css";
+
 
 function FloatingCart() {
   const { cart, total } = useContext(CartContext);
