@@ -8,7 +8,6 @@ import { CartProvider } from "./context/CartContext";
 import "./styles/base.css";
 import "./styles/layout.css";
 import "./styles/components.css";
-import { ThemeProvider } from "./context/ThemeContext";
 
 
 const container = document.getElementById("root");
@@ -24,8 +23,7 @@ const root = ReactDOM.createRoot(container);
 
 
 root.render(
-  <ErrorBoundary>
-    <ThemeProvider>
+    <ErrorBoundary>
       <AuthProvider>
         <CartProvider>
           <BrowserRouter>
@@ -33,6 +31,5 @@ root.render(
           </BrowserRouter>
         </CartProvider>
       </AuthProvider>
-    </ThemeProvider>
-  </ErrorBoundary>
+    </ErrorBoundary>
 );

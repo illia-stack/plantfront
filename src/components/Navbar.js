@@ -2,7 +2,6 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { CartContext } from "../context/CartContext";
-import { ThemeContext } from "../context/ThemeContext";
 
 
 function Navbar() {
@@ -102,12 +101,6 @@ function Navbar() {
 
           <button className="nav-btn" onClick={() => handleNavigate("/cart")}>
             🛒 ({cartCount})
-          </button>
-
-          
-
-          <button className="nav-btn" onClick={() => setDark(prev => !prev)}>
-            {dark ? "☀️" : "🌙"}
           </button>
 
       </div>
