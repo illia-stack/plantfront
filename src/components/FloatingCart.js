@@ -12,24 +12,23 @@ function FloatingCart() {
 
   // Scroll-Handler für das Tracking der Scroll-Position
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY; // Aktuelle Scroll-Position
-      console.log("Scroll Y:", scrollPosition); // Log für Debugging
+    let timeout = null;
 
-      if (scrollPosition > 100) {  // Wenn die Seite mehr als 100px nach unten gescrollt wird
-        setIsScrolled(true); // Scroll-Position überschreitet 100px
-      } else {
-        setIsScrolled(false); // Ansonsten zurück auf den ursprünglichen Zustand
-      }
+    const handleScroll = () => {
+      if (timeout) return;
+
+      timeout = setTimeout(() => {
+        setIsScrolled(window.scrollY > 100);
+        timeout = null;
+      }, 100);
     };
 
     window.addEventListener("scroll", handleScroll);
 
-    // Cleanup des Event Listeners, wenn der Component unmountet
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, []); 
 
   // Wenn der Warenkorb leer ist, zeigen wir nichts
   if (cartCount === 0) return null;

@@ -81,7 +81,7 @@ function Comments({ productId }) {
 
       alert("Comment posted successfully!");
     } catch (err) {
-      alert("Failed to post comment", err.message);
+      alert("Failed to post comment");
     } finally {
       setLoading(false);
     }

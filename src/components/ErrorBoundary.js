@@ -23,7 +23,14 @@ class ErrorBoundary extends React.Component {
 
       if(this.state.hasError === true) {
 
-        return <h2>Something went wrong</h2>
+        return (
+          <div>
+            <h2>Something went wrong</h2>
+            <button onClick={() => window.location.reload()}>
+              Reload
+            </button>
+          </div>
+        );
 
       }
 
