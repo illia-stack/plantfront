@@ -7,7 +7,27 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // ✅ FIRST: security & performance middleware
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+
+        connectSrc: [
+          "'self'",
+          "https://plantback.onrender.com"
+        ],
+
+        imgSrc: ["'self'", "data:", "https:"],
+
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+
+        styleSrc: ["'self'", "'unsafe-inline'"]
+      }
+    }
+  })
+);
+
 app.use(compression());
 
 // ✅ THEN: static files
