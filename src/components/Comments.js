@@ -18,18 +18,18 @@ function Comments({ productId }) {
 
       if (!res.ok) throw new Error("HTTP error");
 
-      const text = await res.text();
+      const responseText = await res.text();
 
       let data;
       try {
-        data = text ? JSON.parse(text) : [];
+        data = responseText ? JSON.parse(responseText) : [];
       } catch {
         throw new Error("Invalid JSON response from server invalid Json");
       }
 
       setComments(data);
     } catch (err) {
-      console.error("Failed to fetch comments");
+      console.error("Failed to fetch comments:", err);
     }
   };
 
@@ -39,6 +39,9 @@ function Comments({ productId }) {
 
   // ➕ Kommentar posten
   const postComment = async () => {
+
+    if (loading) return;
+    
     if (!username || !text) {
       alert("Please fill all fields");
       return;
@@ -108,7 +111,9 @@ function Comments({ productId }) {
                   <div className="comment-header">
                     <strong>{c.username}</strong>
                     <small>
-                      {new Date(c.created_at)}
+                      {c.created_at && !isNaN(new Date(c.created_at))
+                        ? new Date(c.created_at).toLocaleString()
+                        : "Unknown date"}
                     </small>
                   </div>
                   <p>{c.comment}</p>
@@ -137,7 +142,7 @@ function Comments({ productId }) {
             disabled={loading}
             className="comments-submit-btn"
           >
-            Loading ...
+            {loading ? "Posting..." : "Post comment"}
           </button>
 
         </div>
