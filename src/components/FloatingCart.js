@@ -7,7 +7,6 @@ function FloatingCart() {
   const { cart, total } = useContext(CartContext);
   const navigate = useNavigate();
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-
   const [isScrolled, setIsScrolled] = useState(false);
 
   // Scroll-Handler für das Tracking der Scroll-Position

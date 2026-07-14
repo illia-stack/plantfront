@@ -17,9 +17,8 @@ import { CartContext } from "./context/CartContext";
 
 
 
-
 // ---------------------------
-// 1. APP ROUTER
+//  APP ROUTER
 // ---------------------------
 function App() {
 

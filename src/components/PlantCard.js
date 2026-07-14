@@ -6,7 +6,6 @@ import Comments from "./Comments";
 function PlantCard({ plant }) {
 
   const [showDesc, setShowDesc] = useState(false);
-
   const { addToCart } = useContext(CartContext);
   
   return (
@@ -49,7 +48,6 @@ function PlantCard({ plant }) {
     </div>
   );
 }
-
 
 
 export default React.memo(

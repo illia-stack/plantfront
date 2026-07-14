@@ -1,11 +1,7 @@
 import { createContext, useState, useEffect, useMemo } from "react";
 
-
 export const CartContext = createContext();
-
 export const CartProvider = ({ children }) => {
-
-
 
   const [cart, setCart] = useState(() => {
     const saved = localStorage.getItem("cart");
@@ -85,12 +81,7 @@ export const CartProvider = ({ children }) => {
       sum + (Number(item.price) || 0) * (item.quantity || 0)
     , 0),
   [cart]);
-
  
-
-  
-
-  
 
   return (
     <CartContext.Provider

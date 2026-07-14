@@ -8,7 +8,6 @@ function Home () {
   const [plants, setPlants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState("All");
-
   const { cart } = useContext(CartContext);
 
   //Title
@@ -61,8 +60,7 @@ function Home () {
   // race-unmounting before fetch is completed  - taken in account
 
 
-
-
+  //Cagory_filter
 
   const categories = ["All", ...new Set(plants.map((p) => p.category))];
   

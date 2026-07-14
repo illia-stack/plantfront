@@ -9,7 +9,7 @@ function Comments({ productId }) {
   const [text, setText] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // 🔄 Kommentare laden
+  
   const fetchComments = async () => {
     try {
       const res = await fetch(
@@ -33,11 +33,12 @@ function Comments({ productId }) {
     }
   };
 
-  useEffect(() => {
-  if (show) fetchComments();
-}, [show, productId]);
 
-  // ➕ Kommentar posten
+  useEffect(() => {
+    if (show) fetchComments();
+  }, [show, productId]);
+
+  
   const postComment = async () => {
 
     if (loading) return;
@@ -48,7 +49,7 @@ function Comments({ productId }) {
     }
 
     setLoading(true);
-
+    
     try {
       const res = await fetch(`${API_BASE_URL}/comments.php`, {
         method: "POST",
@@ -86,6 +87,7 @@ function Comments({ productId }) {
       setLoading(false);
     }
   };
+
 
   return (
     <div className="comments">
@@ -150,5 +152,6 @@ function Comments({ productId }) {
     </div>
   );
 }
+
 
 export default Comments;

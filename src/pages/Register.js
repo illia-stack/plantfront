@@ -4,12 +4,12 @@ import { API_BASE_URL } from "../config";
 import { AuthContext } from "../context/AuthContext";
 
 function Register() {
+  
   const { login, authFetch, loading: authLoading } = useContext(AuthContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  
   const navigate = useNavigate();
 
   const handleRegister = async () => {
@@ -59,7 +59,7 @@ function Register() {
           return;
         }
 
-        // ✅ Fallback (fehlte!)
+        // ✅ Fallback 
         alert("Registration failed");
     } finally {
           setLoading(false);

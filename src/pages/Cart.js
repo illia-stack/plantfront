@@ -9,7 +9,6 @@ function Cart() {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
-
   const {
     cart,
     increaseQty,
@@ -48,10 +47,6 @@ function Cart() {
         console.error("Fetch error:", error);
       });
   }, []);
-
-
-
-
 
 
   return (
