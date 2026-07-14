@@ -23,7 +23,7 @@ border-radius:5px;
 text-align:center; 
 padding:60px 20px; 
 margin: 20px auto 40px auto; 
-background: #a5d6a7; /* soft green */ 
+background: #a5d6a7;  
 color:#1b5e20; 
 border-radius:12px; 
 max-width:1200px; 
@@ -111,7 +111,7 @@ transform:translateY(-5px);
 .card img { 
 width: 100%; 
 height: 180px; 
-object-fit: cover; /* makes all images same size without stretching */ 
+object-fit: cover; 
 border-radius: 8px; 
 } 
 .card h3{ 
@@ -143,9 +143,9 @@ margin-top:10px;
 
 .category-filter {
   display: flex;
-  justify-content: center;   /* 👉 Zentriert horizontal */
-  flex-wrap: wrap;           /* 👉 Responsive */
-  gap: 10px;                 /* 👉 Abstand zwischen Buttons */
+  justify-content: center;   
+  flex-wrap: wrap;           
+  gap: 10px;                 
   margin-bottom: 30px;
 }
 
@@ -351,10 +351,7 @@ margin-top:10px;
   text-align: center;
 }
 
-/* Dark Mode Support */
-body.dark .auth-container {
-  background: #1e1e1e;
-}
+
 
 .auth-form {
   display: flex;
@@ -449,16 +446,16 @@ padding:40px;
 max-width:1200px; 
 margin:120px auto 60px auto; 
 display: flex;
-flex-direction: column; /* 👈 wichtig */
+flex-direction: column; 
 align-items: center;
 } 
 
 .cart-info {
   display: flex;
   flex-direction: column;
-  align-items: center;     /* horizontal zentrieren */
-  justify-content: space-between; /* vertikal zentrieren */
-  text-align: center;      /* Text mittig */
+  align-items: center;     
+  justify-content: space-between; 
+  text-align: center;     
   width: 100%;
 }
 .cart-info h3 {
@@ -523,9 +520,9 @@ background: #b71c1c;
 } 
 .cart-empty {
   display: flex;
-  flex-direction: column;   /* 👈 wichtig */
-  justify-content: center;  /* vertikal */
-  align-items: center;      /* horizontal */
+  flex-direction: column;   
+  justify-content: center;  
+  align-items: center;    
 
   height: 60vh;
   text-align: center;
@@ -572,17 +569,7 @@ background: #b71c1c;
 
 
 
-body.dark .cart-card {
-  background: #1e1e1e;
-}
 
-body.dark .cart-total {
-  background: #1e1e1e;
-}
-
-body.dark .cart-price {
-  color: #aaa;
-}
 
 
 

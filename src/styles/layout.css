@@ -298,44 +298,6 @@
 }
 
 
-/* COMMENTS DARK MODE FIX */
-body.dark .comments-box {
-  background: #2a2a2a;
-  color: #eee;
-}
-
-body.dark .comment-item {
-  border-bottom: 1px solid #444;
-}
-
-body.dark .comment-header {
-  color: #aaa;
-}
-
-body.dark .comments-input,
-body.dark .comments-textarea {
-  background: #1e1e1e;
-  color: #fff;
-  border: 1px solid #555;
-}
-
-body.dark .comments-input::placeholder,
-body.dark .comments-textarea::placeholder {
-  color: #888;
-}
-
-body.dark .comments-submit-btn {
-  background: #2e7d32;
-}
-
-body.dark .comments-submit-btn:hover {
-  background: #1b5e20;
-}
-
-body.dark .card-comments {
-  border-top: 1px solid #444;
-}
-
 
 
 

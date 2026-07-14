@@ -20,23 +20,6 @@ body {
     radial-gradient(ellipse at center, #c8e6c9 0%, transparent 70%),
     #f1f8e9;
 }
-body.dark {
-  background: #121212;
-  color: white;
-}
-
-body.dark .card {
-  background: #1e1e1e;
-}
-
-body.dark .navbar {
-  background: #1a1a1a;
-}
-
-body.dark .hero-banner {
-  background: #2e7d32;
-  color: white;
-}
 
 
 .loader {
