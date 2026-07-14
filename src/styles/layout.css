@@ -1,3 +1,9 @@
+/*///////////////////_LAYOUT_ARRANGEMENT_///////////////*/
+
+
+
+/*////_#1_NAVBAR_////*/
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -10,7 +16,60 @@
   z-index: 1000;
 }
 
-/* LEFT */
+
+/*_Navbar_buttons_*/
+.nav-btn {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  transition: 0.2s;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+
+
+/*_Navbar_links_*/
+.nav-btn.active {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.nav-right .contact-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.contact-link {
+  cursor: pointer;
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: 0.2s;
+  color: white;
+}
+
+.contact-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+
+
+
+/*_Left-navbar_*/
 .nav-left {
   display: flex;
   align-items: center;
@@ -22,28 +81,26 @@
   width: 40px;
 }
 
-/* RIGHT (desktop) */
+
+
+
+/*_Right-navbar_*/
 .nav-right {
   display: flex;
   z-index: 1100;
   align-items: center;
-  justify-content: center; /* alles horizontal zentrieren */
+  justify-content: center; 
   gap: 15px;
 }
 
-
-
-
-
-/* hamburger hidden on desktop */
+/*_Hamburger-dropup_(hidden_on_desktop)_*/
 .hamburger {
   display: none;
   font-size: 28px;
   cursor: pointer;
 }
 
-
-/* flags */
+/*_Flags_*/
 .flags {
   display: flex;
   align-items: center;
@@ -63,7 +120,9 @@
   transform: scale(1.1);
 }
 
-/* MOBILE */
+
+
+/*_Right-navbar_(mobile_addition)_*/
 @media (max-width: 768px) {
 
   .hamburger {
@@ -114,66 +173,12 @@
 }
 
 
-.nav-btn {
-  padding: 8px 14px;
-  border-radius: 6px;
-  border: none;
-  background: transparent;
-  color: white;
-  cursor: pointer;
-  font-size: 14px;
-
-  display: flex;
-  align-items: center;
-  gap: 6px;
-
-  transition: 0.2s;
-}
-
-.nav-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-/* optional: aktiver Button */
-.nav-btn.active {
-  background: rgba(255, 255, 255, 0.25);
-}
-
-
-/*Kontakt-Verlinkung(rechte Navigationsleiste)*/
-
-.nav-right .contact-link {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  cursor: pointer;
-}
-
-
-.contact-link {
-  cursor: pointer;
-  font-weight: bold;
-  padding: 6px 10px;
-  border-radius: 6px;
-  transition: 0.2s;
-  color: white;
-}
-
-.contact-link:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
 
 
 
 
 
-
-
-
-
-/*Produktenkarte*/
-/* CARD STRUCTURE */
+/*////_#2_PRODUCT_CARD_STRUCTURE_////*/
 .card {
   background: white;
   border-radius: 12px;
@@ -194,13 +199,45 @@
   transform: translateY(-5px);
 }
 
-/* separates content vs comments */
 .card-content {
   display: flex;
   flex-direction: column;
 }
 
-/* COMMENTS AREA */
+
+
+
+
+
+
+/*////_#3_COMMENTS_AREA_////*/
+
+.comments {
+  margin-top: 15px;
+}
+
+
+/*_Title_&_header_*/
+.comments-title {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #666;
+}
+
+
+/*_Single_comment_*/
+.comment-item {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+
 .card-comments {
   margin-top: 12px;
   padding-top: 10px;
@@ -208,13 +245,16 @@
 }
 
 
-
-/*KOMMENTARE*/
-.comments {
-  margin-top: 15px;
+/*_Container_*/
+.comments-box {
+  margin-top: 10px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  text-align: left;
 }
 
-/* Toggle Button */
+/*_Toggle_Button_*/
 .comments-toggle-btn {
   width: 100%;
   padding: 10px;
@@ -230,42 +270,17 @@
   background: #5a6268;
 }
 
-/* Container */
-.comments-box {
-  margin-top: 10px;
-  padding: 12px;
-  background: #f8f9fa;
-  border-radius: 10px;
-  text-align: left;
-}
 
-/* Title */
-.comments-title {
-  margin-bottom: 10px;
-  font-size: 16px;
-}
 
-/* List */
+/*_List_*/
 .comments-list {
   max-height: 180px;
   overflow-y: auto;
   margin-bottom: 10px;
 }
 
-/* Single comment */
-.comment-item {
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
-}
 
-.comment-header {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  color: #666;
-}
-
-/* Inputs */
+/*_Inputs_*/
 .comments-input,
 .comments-textarea {
   width: 100%;
@@ -281,7 +296,7 @@
   height: 70px;
 }
 
-/* Submit */
+/*_Submit_*/
 .comments-submit-btn {
   margin-top: 8px;
   width: 100%;
@@ -304,7 +319,8 @@
 
 
 
-/* CART */
+/*////_#4_CART_////*/
+
 @media (max-width: 768px) {
   .cart-container {
     padding: 15px;
