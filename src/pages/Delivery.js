@@ -31,8 +31,7 @@ function Delivery() {
     e.preventDefault();
 
     const preparedCart = cart.map(item => ({
-      name: item.name,
-      price: item.price,
+      id: item.id,
       quantity: item.quantity
     }));
 
@@ -40,8 +39,6 @@ function Delivery() {
     try {
         const response = await authFetch(`${API_BASE_URL}/create-checkout-session.php`, {
           method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             cart: preparedCart,
             delivery: form,

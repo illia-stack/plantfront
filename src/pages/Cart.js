@@ -17,10 +17,7 @@ function Cart() {
     total
   } = useContext(CartContext);
 
-  let finalTotal = total;
-  if (user && user.id) {
-    finalTotal = total * 0.95;
-  }
+  const finalTotal = total;
 
 
   const handleCheckout = () => {

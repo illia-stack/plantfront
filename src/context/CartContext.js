@@ -1,4 +1,5 @@
-import { createContext, useState, useEffect, useMemo } from "react";
+import { createContext, useState, useEffect, useMemo, useContext } from "react";
+import { AuthContext } from "./AuthContext";
 
 export const CartContext = createContext();
 export const CartProvider = ({ children }) => {
@@ -72,15 +73,21 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => setCart([]);
 
+
+
   // ---------------------------
   // TOTAL (WITH DISCOUNT)
   // ---------------------------
 
-  const total = useMemo(() =>
-    cart.reduce((sum, item) =>
+ const { user } = useContext(AuthContext);
+
+  const total = useMemo(() => {
+    const raw = cart.reduce((sum, item) =>
       sum + (Number(item.price) || 0) * (item.quantity || 0)
-    , 0),
-  [cart]);
+    , 0);
+
+    return user ? Math.round(raw * 0.95 * 100) / 100 : raw;
+  }, [cart, user]);
  
 
   return (
