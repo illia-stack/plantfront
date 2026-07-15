@@ -752,6 +752,17 @@ font-size: 1.2rem;
 }
 
 
+/*_Show/hide_password_*/
+.password-field {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-password {
+  margin-left: 8px;
+  cursor: pointer;
+}
+
 
 
 

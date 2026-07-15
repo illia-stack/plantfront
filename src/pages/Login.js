@@ -11,6 +11,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async () => {
     if (loading) return;
@@ -18,9 +19,12 @@ function Login() {
     setLoading(true);
 
     try {
-      // ✅ Use centralized fetch
+      // ✅ Centralized fetch
       const res = await authFetch(`${API_BASE_URL}/login.php`, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({ email, password }),
       });
 
@@ -81,23 +85,49 @@ function Login() {
             type="email"
             placeholder="Enter your e-mail"
             value={email}
+            disabled={loading}
             onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
             required
           />
 
-          <input
-            type="password"
-            placeholder="Enter your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+         
+
+          <div className="password-field">
+
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter your password"
+              value={password}
+              disabled={loading}
+              onChange={(e) => setPassword(e.target.value)}
+              autoComplete="password"
+              required
+            />
+
+
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          
+          </div>
+
+
 
           <button className="auth-btn" type="submit" disabled={loading}>
             {loading ? "Loading..." : "Login"}
           </button>
 
+
+
         </form>
+
+
+
 
         <div className="auth-switch">
           {"No account?"}
