@@ -48,19 +48,29 @@ export const AuthProvider = ({ children }) => {
 
     const headers = {
       ...(options.headers || {}),
-      "X-CSRF-Token": token, // 🔥 DAS FEHLT
-    };
+    };  
 
     if (options.body && !(options.body instanceof FormData)) {
       headers["Content-Type"] = "application/json";
+    }
+
+    let body = options.body;
+
+    if (body && !(body instanceof FormData)) {
+      const parsed = JSON.parse(body);
+      parsed.csrf = token; // ✅ ADD THIS
+      body = JSON.stringify(parsed);
     }
 
     const res = await fetch(url, {
       ...options,
       credentials: "include",
       headers,
+      body,
     });
 
+
+    
     // 🔁 1. Retry  CSRF fetch
     if (res.status === 403 && retry) {
       await fetchCsrfToken();
