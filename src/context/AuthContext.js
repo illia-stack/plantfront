@@ -47,8 +47,9 @@ export const AuthProvider = ({ children }) => {
     }
 
     const headers = {
-      ...(options.headers || {}),
-    };  
+  ...(options.headers || {}),
+  "X-CSRF-Token": token,   // ✅ ADD THIS
+};  
 
     if (options.body && !(options.body instanceof FormData)) {
       headers["Content-Type"] = "application/json";
@@ -58,7 +59,6 @@ export const AuthProvider = ({ children }) => {
 
     if (body && !(body instanceof FormData)) {
       const parsed = JSON.parse(body);
-      parsed.csrf = token; // ✅ ADD THIS
       body = JSON.stringify(parsed);
     }
 
