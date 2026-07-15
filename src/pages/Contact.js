@@ -33,6 +33,7 @@ function Contact() {
       });
 
       let data;
+
       try {
         data = await res.json();
       } catch {
@@ -45,11 +46,13 @@ function Contact() {
       } else {
         setStatus("error");
       }
+
     } catch {
       setStatus("error");
     }
 
     setLoading(false);
+
   };
 
   return (

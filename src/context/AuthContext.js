@@ -38,8 +38,10 @@ export const AuthProvider = ({ children }) => {
     return csrfPromiseRef.current;
   };
 
+
   // 🔹 Centralized fetch helper
   const authFetch = async (url, options = {}, retry = true) => {
+
     let token = csrfToken;
 
     if (!token) {
@@ -47,9 +49,9 @@ export const AuthProvider = ({ children }) => {
     }
 
     const headers = {
-  ...(options.headers || {}),
-  "X-CSRF-Token": token,   // ✅ ADD THIS
-};  
+      ...(options.headers || {}),
+      "X-CSRF-Token": token, 
+    };  
 
     if (options.body && !(options.body instanceof FormData)) {
       headers["Content-Type"] = "application/json";
@@ -91,10 +93,13 @@ export const AuthProvider = ({ children }) => {
     }
 
     return res;
+
   };
+
 
   // 🔹 Initialize session + user
   const initializeAuth = async () => {
+
     try {
           
       const meRes = await authFetch(`${API_BASE_URL}/me.php`);
@@ -107,15 +112,18 @@ export const AuthProvider = ({ children }) => {
     } catch (err) {
       console.error("Auth init failed:", err);
       setUser(null);
+
     } finally {
       setLoading(false);
     }
 
   };
 
+
   useEffect(() => {
     initializeAuth();
   }, []);
+
 
   // 🔹 Login → sync + new CSRF
   const login = async () => {
@@ -133,8 +141,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+
   // 🔹 Logout
   const logout = async () => {
+
     try {
       const res = await authFetch(`${API_BASE_URL}/logout.php`, {
         method: "POST",
@@ -164,6 +174,7 @@ export const AuthProvider = ({ children }) => {
       } finally {
       csrfPromiseRef.current = null;
       }
+
     }
 
   };
@@ -182,4 +193,5 @@ export const AuthProvider = ({ children }) => {
       {children}
       </AuthContext.Provider>
     );
+    
 };

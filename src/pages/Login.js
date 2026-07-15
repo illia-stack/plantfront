@@ -14,9 +14,11 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async () => {
+
     if (loading) return;
 
     setLoading(true);
+
 
     try {
       // ✅ Centralized fetch
@@ -49,6 +51,7 @@ function Login() {
       alert("Logged in!");
       navigate("/", { replace: true });
 
+
     } catch (err) {
 
         if (err.message === "SESSION_EXPIRED") {
@@ -62,10 +65,13 @@ function Login() {
         }
 
         alert(err.message || "Login failed");
+
     } finally {
       setLoading(false);
       }
+
   };
+
 
   return (
     <div className="auth-page">
@@ -141,7 +147,9 @@ function Login() {
 
       </div>
     </div>
+
   );
+  
 }
 
 export default Login;

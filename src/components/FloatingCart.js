@@ -29,7 +29,7 @@ function FloatingCart() {
     };
   }, []); 
 
-  // Wenn der Warenkorb leer ist, zeigen wir nichts
+  // If the cart is empty
   if (cartCount === 0) return null;
 
   return (

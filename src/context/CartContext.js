@@ -13,14 +13,18 @@ export const CartProvider = ({ children }) => {
     
   });
 
+
   // Save cart to localStorage
   useEffect(() => {
+
     try {
       localStorage.setItem("cart", JSON.stringify(cart));
     } catch (err) {
       console.error("Failed to save cart", err);
     }
+
   }, [cart]);
+
 
   // ---------------------------
   // CART FUNCTIONS
@@ -50,6 +54,7 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+
   const increaseQty = (id) =>
     setCart((prev) =>
       prev.map((item) =>
@@ -58,6 +63,7 @@ export const CartProvider = ({ children }) => {
           : item
       )
     );
+
 
   const decreaseQty = (id) =>
     setCart((prev) =>
@@ -68,8 +74,10 @@ export const CartProvider = ({ children }) => {
       )
     );
 
+
   const removeFromCart = (id) =>
     setCart((prev) => prev.filter((item) => item.id !== id));
+
 
   const clearCart = () => setCart([]);
 
@@ -82,11 +90,13 @@ export const CartProvider = ({ children }) => {
  const { user } = useContext(AuthContext);
 
   const total = useMemo(() => {
+
     const raw = cart.reduce((sum, item) =>
       sum + (Number(item.price) || 0) * (item.quantity || 0)
     , 0);
 
     return user ? Math.round(raw * 0.95 * 100) / 100 : raw;
+
   }, [cart, user]);
  
 
@@ -105,4 +115,5 @@ export const CartProvider = ({ children }) => {
       {children}
     </CartContext.Provider>
   );
+  
 };

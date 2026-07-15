@@ -47,7 +47,6 @@ function Delivery() {
 
         if (!response.ok) {
           const text = await response.text();
-console.log("RAW RESPONSE:", text);
           alert("Server error");
           return;
         }
@@ -61,10 +60,12 @@ console.log("RAW RESPONSE:", text);
           console.error("Stripe session error:", data);
           alert("Something went wrong. Please try again.");
         }
+
     } catch (err) {
       console.error(err);
       alert("Server error");
     }
+    
   };
 
       return (

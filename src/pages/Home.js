@@ -10,6 +10,7 @@ function Home () {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const { cart } = useContext(CartContext);
 
+
   //Title
   useEffect(() => {
     document.title = "Indoor Plants Shop";
@@ -115,6 +116,7 @@ function Home () {
 
     </div>
   );
+  
 }
 
 export default Home;

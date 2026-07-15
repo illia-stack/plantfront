@@ -73,6 +73,7 @@ function Register() {
 
         // ✅ Fallback 
         alert("Registration failed");
+        
     } finally {
           setLoading(false);
       }
@@ -194,7 +195,9 @@ function Register() {
 
       </div>
     </div>
+
   );
+
 }
 
 export default Register;
