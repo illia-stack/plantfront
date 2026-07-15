@@ -56,7 +56,7 @@ console.log("RAW RESPONSE:", text);
         console.log("Stripe response:", data);
 
         if (data.url) {
-          window.location.href = data.url;
+          window.location.href = data.url;  
         } else {
           console.error("Stripe session error:", data);
           alert("Something went wrong. Please try again.");
