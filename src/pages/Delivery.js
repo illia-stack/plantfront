@@ -47,7 +47,7 @@ function Delivery() {
 
         if (!response.ok) {
           const text = await response.text();
-          console.error("Server error:", text);
+console.log("RAW RESPONSE:", text);
           alert("Server error");
           return;
         }
